@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.gragon</groupId>
+        <artifactId>chiba-cloud-house</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <artifactId>chiba-common</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>chiba-common-redis</module>
+        <module>chiba-common-core</module>
+        <module>chiba-common-nacos</module>
+        <module>chiba-common-mybatis</module>
+        <module>chiba-common-dubbo</module>
+        <module>chiba-common-alibaba-bom</module>
+        <module>chiba-common-bom</module>
+        <module>chiba-common-bus</module>
+        <module>chiba-common-json</module>
+        <module>chiba-common-web</module>
+        <module>chiba-common-security</module>
+        <module>chiba-common-satoken</module>
+    </modules>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

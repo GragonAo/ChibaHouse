@@ -1,0 +1,4 @@
+org.gragon.common.web.config.FilterConfig
+org.gragon.common.web.config.I18nConfig
+org.gragon.common.web.config.UndertowConfig
+org.gragon.common.web.config.ResourcesConfig

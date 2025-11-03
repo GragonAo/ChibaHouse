@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.gragon</groupId>
+    <artifactId>chiba-common-bom</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+
+    <description>
+        chiba-common-bom common依赖项
+    </description>
+
+    <properties>
+        <revision>2.2.2</revision>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 核心模块 -->
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 缓存服务 -->
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- web服务 -->
+            <dependency>
+                <groupId>org.dromara</groupId>
+                <artifactId>chiba-common-web</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 数据库服务 -->
+            <dependency>
+                <groupId>org.dromara</groupId>
+                <artifactId>chiba-common-mybatis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- RPC服务 -->
+            <dependency>
+                <groupId>org.dromara</groupId>
+                <artifactId>chiba-common-dubbo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-json</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+
+            <!-- 配置中心 -->
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-nacos</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 消息总线模块 -->
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-bus</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-web</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-satoken</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-security</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+</project>
