@@ -118,8 +118,8 @@
 
             <!-- SpringCloud Alibaba 微服务 -->
             <dependency>
-                <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-common-alibaba-bom</artifactId>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-alibaba-bom</artifactId>
                 <version>${revision}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -154,6 +154,14 @@
             <dependency>
                 <groupId>org.gragon</groupId>
                 <artifactId>chiba-common-bom</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-api-bom</artifactId>
                 <version>${revision}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -334,11 +342,21 @@
                 <version>${rocketmq.version}</version>
             </dependency>
 
+            <!-- 加密包引入 -->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15to18</artifactId>
+                <version>${bouncycastle.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <modules>
         <module>chiba-common</module>
+        <module>chiba-auth</module>
+        <module>chiba-api</module>
+        <module>chiba-gateway</module>
     </modules>
 
     <packaging>pom</packaging>

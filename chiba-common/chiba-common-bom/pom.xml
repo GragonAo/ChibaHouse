@@ -35,21 +35,21 @@
 
             <!-- web服务 -->
             <dependency>
-                <groupId>org.dromara</groupId>
+                <groupId>org.gragon</groupId>
                 <artifactId>chiba-common-web</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- 数据库服务 -->
             <dependency>
-                <groupId>org.dromara</groupId>
+                <groupId>org.gragon</groupId>
                 <artifactId>chiba-common-mybatis</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- RPC服务 -->
             <dependency>
-                <groupId>org.dromara</groupId>
+                <groupId>org.gragon</groupId>
                 <artifactId>chiba-common-dubbo</artifactId>
                 <version>${revision}</version>
             </dependency>
@@ -90,6 +90,24 @@
             <dependency>
                 <groupId>org.gragon</groupId>
                 <artifactId>chiba-common-security</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-encrypt</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-sentinel</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-social</artifactId>
                 <version>${revision}</version>
             </dependency>
 

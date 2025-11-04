@@ -7,44 +7,41 @@
         <artifactId>chiba-common</artifactId>
         <version>${revision}</version>
     </parent>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>14</source>
+                    <target>14</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chiba-common-satoken</artifactId>
+    <artifactId>chiba-common-social</artifactId>
 
     <description>
-        chiba-common-satoken 权限认证服务
+        chiba-common-social 授权认证
     </description>
 
     <dependencies>
-
         <dependency>
-            <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-core</artifactId>
+            <groupId>me.zhyd.oauth</groupId>
+            <artifactId>JustAuth</artifactId>
         </dependency>
 
-        <!-- Sa-Token 整合 jwt -->
         <dependency>
-            <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-jwt</artifactId>
-            <version>${satoken.version}</version>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-json</artifactId>
         </dependency>
 
-
-        <!-- chiba Common Redis-->
         <dependency>
             <groupId>org.gragon</groupId>
             <artifactId>chiba-common-redis</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.gragon</groupId>
-            <artifactId>chiba-api-system</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>

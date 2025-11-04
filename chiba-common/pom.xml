@@ -23,6 +23,9 @@
         <module>chiba-common-web</module>
         <module>chiba-common-security</module>
         <module>chiba-common-satoken</module>
+        <module>chiba-common-encrypt</module>
+        <module>chiba-common-sentinel</module>
+        <module>chiba-common-social</module>
     </modules>
     <build>
         <plugins>

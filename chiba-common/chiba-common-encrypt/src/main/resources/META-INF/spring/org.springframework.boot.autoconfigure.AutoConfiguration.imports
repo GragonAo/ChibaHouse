@@ -1,0 +1,2 @@
+org.gragon.common.encrypt.config.EncryptorAutoConfiguration
+org.gragon.common.encrypt.config.ApiDecryptAutoConfiguration

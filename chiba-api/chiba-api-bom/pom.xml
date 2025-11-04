@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.gragon</groupId>
+    <artifactId>chiba-api-bom</artifactId>
+    <packaging>pom</packaging>
+    <version>${revision}</version>
+
+    <description>
+        chiba-api-bom api依赖项
+    </description>
+
+    <properties>
+        <revision>2.2.2</revision>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 系统接口 -->
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-api-system</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
