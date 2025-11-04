@@ -99,14 +99,6 @@ public class MybatisPlusConfiguration {
     }
 
     /**
-     * 数据权限处理实现
-     */
-    @Bean("sdss")
-    public SysDataScopeService sysDataScopeService() {
-        return new SysDataScopeService();
-    }
-
-    /**
      * PaginationInnerInterceptor 分页插件，自动识别数据库类型
      * https://baomidou.com/pages/97710a/
      * OptimisticLockerInnerInterceptor 乐观锁插件

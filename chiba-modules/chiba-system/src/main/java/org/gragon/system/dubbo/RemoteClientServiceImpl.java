@@ -2,9 +2,9 @@ package org.gragon.system.dubbo;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.dromara.common.core.utils.MapstructUtils;
-import org.dromara.system.api.RemoteClientService;
-import org.dromara.system.api.domain.vo.RemoteClientVo;
+import org.gragon.common.core.utils.MapstructUtils;
+import org.gragon.system.api.RemoteClientService;
+import org.gragon.system.api.domain.vo.RemoteClientVo;
 import org.gragon.system.domain.vo.SysClientVo;
 import org.gragon.system.service.ISysClientService;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 /**
  * 客户端服务
  *
- * @author Michelle.Chung
  */
 @RequiredArgsConstructor
 @Service
