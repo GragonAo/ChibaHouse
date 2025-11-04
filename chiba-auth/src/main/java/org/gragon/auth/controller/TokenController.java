@@ -52,7 +52,6 @@ import java.util.concurrent.TimeUnit;
 public class TokenController {
     private final SocialProperties socialProperties;
     private final SysLoginService sysLoginService;
-    private final ScheduledExecutorService scheduledExecutorService;
 
     @DubboReference
     private final RemoteConfigService remoteConfigService;
