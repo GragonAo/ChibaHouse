@@ -24,7 +24,7 @@ target/
 *.iws
 *.iml
 *.ipr
-
+.env
 ## JRebel ###
 rebel.xml
 ### NetBeans ###
@@ -33,7 +33,7 @@ build/*
 nbbuild/
 nbdist/
 .nb-gradle/
-ssh/
+
 
 ######################################################################
 # Others
