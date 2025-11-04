@@ -357,6 +357,7 @@
         <module>chiba-auth</module>
         <module>chiba-api</module>
         <module>chiba-gateway</module>
+        <module>chiba-modules</module>
     </modules>
 
     <packaging>pom</packaging>

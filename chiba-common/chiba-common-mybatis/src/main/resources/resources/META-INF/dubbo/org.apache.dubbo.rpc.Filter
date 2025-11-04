@@ -1,0 +1,1 @@
+dubboDataPermissionFilter=filter.org.gragon.common.mybatis.DubboDataPermissionFilter

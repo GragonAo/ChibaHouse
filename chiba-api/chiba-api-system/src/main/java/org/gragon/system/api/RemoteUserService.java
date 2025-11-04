@@ -12,45 +12,41 @@ import java.util.List;
 /**
  * 用户服务
  *
- * @author Lion Li
  */
 public interface RemoteUserService {
 
     /**
      * 通过用户名查询用户信息
      *
-     * @param username 用户名
-     * @param tenantId 租户id
+     * @param userName 用户名
      * @return 结果
      */
-    LoginUser getUserInfo(String username, String tenantId) throws UserException;
+    LoginUser getUserInfo(String userName) throws UserException;
 
     /**
      * 通过用户id查询用户信息
      *
      * @param userId   用户id
-     * @param tenantId 租户id
      * @return 结果
      */
-    LoginUser getUserInfo(Long userId, String tenantId) throws UserException;
+    LoginUser getUserInfo(Long userId) throws UserException;
 
     /**
      * 通过手机号查询用户信息
      *
      * @param phonenumber 手机号
-     * @param tenantId    租户id
      * @return 结果
      */
-    LoginUser getUserInfoByPhonenumber(String phonenumber, String tenantId) throws UserException;
+    LoginUser getUserInfoByPhonenumber(String phonenumber) throws UserException;
 
     /**
      * 通过邮箱查询用户信息
      *
      * @param email    邮箱
-     * @param tenantId 租户id
+     
      * @return 结果
      */
-    LoginUser getUserInfoByEmail(String email, String tenantId) throws UserException;
+    LoginUser getUserInfoByEmail(String email) throws UserException;
 
     /**
      * 通过openid查询用户信息
@@ -85,20 +81,12 @@ public interface RemoteUserService {
     String selectNicknameById(Long userId);
 
     /**
-     * 通过用户ID查询用户账户
-     *
-     * @param userIds 用户ID 多个用逗号隔开
-     * @return 用户名称
-     */
-    String selectNicknameByIds(String userIds);
-
-    /**
      * 通过用户ID查询用户手机号
      *
      * @param userId 用户id
      * @return 用户手机号
      */
-    String selectPhonenumberById(Long userId);
+    String selectPhoneNumberById(Long userId);
 
     /**
      * 通过用户ID查询用户邮箱
@@ -123,12 +111,4 @@ public interface RemoteUserService {
      * @return 用户列表
      */
     List<RemoteUserVo> selectListByIds(List<Long> userIds);
-
-    /**
-     * 通过角色ID查询用户ID
-     *
-     * @param roleIds 角色ids
-     * @return 用户ids
-     */
-    List<Long> selectUserIdsByRoleIds(List<Long> roleIds);
 }

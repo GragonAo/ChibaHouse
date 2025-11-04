@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.gragon</groupId>
+        <artifactId>chiba-cloud-house</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>chiba-system</module>
+    </modules>
+
+    <artifactId>chiba-modules</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        chiba-modules业务模块
+    </description>
+
+    <dependencies>
+        <!-- 自定义负载均衡(多团队开发使用) -->
+<!--        <dependency>-->
+<!--            <groupId>org.gragon</groupId>-->
+<!--            <artifactId>chiba-common-loadbalancer</artifactId>-->
+<!--        </dependency>-->
+
+        <!-- ELK 日志收集 -->
+<!--        <dependency>-->
+<!--            <groupId>org.gragon</groupId>-->
+<!--            <artifactId>chiba-common-logstash</artifactId>-->
+<!--        </dependency>-->
+
+        <!-- skywalking 日志收集 -->
+<!--        <dependency>-->
+<!--            <groupId>org.gragon</groupId>-->
+<!--            <artifactId>chiba-common-skylog</artifactId>-->
+<!--        </dependency>-->
+
+        <!-- prometheus 监控 -->
+<!--        <dependency>-->
+<!--            <groupId>org.gragon</groupId>-->
+<!--            <artifactId>chiba-common-prometheus</artifactId>-->
+<!--        </dependency>-->
+
+    </dependencies>
+
+</project>

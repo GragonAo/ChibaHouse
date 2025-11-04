@@ -24,23 +24,18 @@ import org.gragon.common.core.exception.user.CaptchaException;
 import org.gragon.common.core.exception.user.CaptchaExpireException;
 import org.gragon.common.core.exception.user.UserException;
 import org.gragon.common.core.utils.MessageUtils;
-import org.gragon.common.core.utils.SpringUtils;
 import org.gragon.common.core.utils.StringUtils;
 import org.gragon.common.redis.utils.RedisUtils;
 import org.gragon.common.satoken.utils.LoginHelper;
-import org.gragon.system.api.RemoteSocialService;
-import org.gragon.system.api.RemoteTenantService;
 import org.gragon.system.api.RemoteUserService;
 import org.gragon.system.api.domain.bo.RemoteSocialBo;
 import org.gragon.system.api.domain.bo.RemoteUserBo;
 import org.gragon.system.api.domain.vo.RemoteSocialVo;
-import org.gragon.system.api.domain.vo.RemoteTenantVo;
 import org.gragon.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.Date;
 import java.util.List;
 import java.util.function.Supplier;
 

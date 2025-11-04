@@ -6,7 +6,6 @@ import org.gragon.system.api.domain.bo.RemoteOperLogBo;
 /**
  * 日志服务
  *
- * @author Lion Li
  */
 public interface RemoteLogService {
 

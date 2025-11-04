@@ -12,8 +12,6 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.gragon.auth.domain.vo.LoginVo;
 import org.gragon.auth.form.RegisterBody;
 import org.gragon.auth.form.SocialLoginBody;
-import org.gragon.auth.properties.CaptchaProperties;
-import org.gragon.auth.properties.UserPasswordProperties;
 import org.gragon.auth.service.IAuthStrategy;
 import org.gragon.auth.service.SysLoginService;
 import org.gragon.common.core.constant.UserConstants;
@@ -27,19 +25,12 @@ import org.gragon.common.social.config.properties.SocialLoginConfigProperties;
 import org.gragon.common.social.config.properties.SocialProperties;
 import org.gragon.common.social.utils.SocialUtils;
 import org.gragon.system.api.RemoteClientService;
-import org.gragon.system.api.RemoteConfigService;
-import org.gragon.system.api.RemoteSocialService;
-import org.gragon.system.api.RemoteTenantService;
 import org.gragon.system.api.domain.vo.RemoteClientVo;
-import org.gragon.system.api.domain.vo.RemoteTenantVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * token 控制

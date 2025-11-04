@@ -26,6 +26,8 @@
         <module>chiba-common-encrypt</module>
         <module>chiba-common-sentinel</module>
         <module>chiba-common-social</module>
+        <module>chiba-common-log</module>
+        <module>chiba-common-idempotent</module>
     </modules>
     <build>
         <plugins>

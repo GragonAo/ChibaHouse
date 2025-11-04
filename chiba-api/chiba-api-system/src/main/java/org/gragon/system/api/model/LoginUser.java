@@ -21,29 +21,9 @@ public class LoginUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 租户ID
-     */
-    private String tenantId;
-
-    /**
      * 用户ID
      */
     private Long userId;
-
-    /**
-     * 部门ID
-     */
-    private Long deptId;
-
-    /**
-     * 部门类别编码
-     */
-    private String deptCategory;
-
-    /**
-     * 部门名
-     */
-    private String deptName;
 
     /**
      * 用户唯一标识
