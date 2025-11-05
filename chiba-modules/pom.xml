@@ -10,6 +10,7 @@
 
     <modules>
         <module>chiba-system</module>
+        <module>chiba-storage</module>
     </modules>
 
     <artifactId>chiba-modules</artifactId>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.gragon</groupId>
+        <artifactId>chiba-modules</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>chiba-storage</artifactId>
+
+    <description>
+        chiba-item-storage 物品收纳模块
+    </description>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-nacos</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-sentinel</artifactId>
+        </dependency>
+
+        <!-- chiba Common Log -->
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-log</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-dubbo</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-security</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
