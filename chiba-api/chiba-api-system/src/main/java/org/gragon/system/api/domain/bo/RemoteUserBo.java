@@ -8,10 +8,11 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.gragon.common.core.constant.RegexConstants;
+import org.gragon.common.core.enums.UserStatus;
+import org.gragon.common.core.enums.UserType;
 import org.gragon.common.core.xss.Xss;
-import org.gragon.system.api.domain.enums.UserRoleType;
-import org.gragon.system.api.domain.enums.UserSexType;
-import org.gragon.system.api.domain.enums.UserStatus;
+import org.gragon.common.core.enums.UserRoleType;
+import org.gragon.common.core.enums.UserSexType;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -51,7 +52,7 @@ public class RemoteUserBo implements Serializable {
     /**
      * 密码Hash
      */
-    private String password_hash;
+    private String password;
 
     /**
      * 用户昵称
@@ -86,4 +87,6 @@ public class RemoteUserBo implements Serializable {
      * 性别
      */
     private UserSexType sex;
+
+    private UserType userType;
 }

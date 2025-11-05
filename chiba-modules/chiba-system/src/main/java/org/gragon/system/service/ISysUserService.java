@@ -1,8 +1,8 @@
 package org.gragon.system.service;
 
+import org.gragon.common.core.enums.UserStatus;
 import org.gragon.common.mybatis.core.page.PageQuery;
 import org.gragon.common.mybatis.core.page.TableDataInfo;
-import org.gragon.system.api.domain.enums.UserStatus;
 import org.gragon.system.domain.bo.SysUserBo;
 import org.gragon.system.domain.vo.SysUserVo;
 

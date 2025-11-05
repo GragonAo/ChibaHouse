@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
-import org.gragon.system.api.domain.enums.UserRoleType;
-import org.gragon.system.api.domain.enums.UserSexType;
-import org.gragon.system.api.domain.enums.UserStatus;
+import org.gragon.common.core.enums.UserRoleType;
+import org.gragon.common.core.enums.UserSexType;
+import org.gragon.common.core.enums.UserStatus;
 import org.gragon.system.domain.SysUser;
 
 import java.io.Serial;

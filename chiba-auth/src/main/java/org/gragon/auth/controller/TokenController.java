@@ -35,7 +35,6 @@ import java.util.Map;
 /**
  * token 控制
  *
- * @author Lion Li
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -45,20 +44,14 @@ public class TokenController {
     private final SysLoginService sysLoginService;
 
     @DubboReference
-    private final RemoteConfigService remoteConfigService;
-    @DubboReference
-    private final RemoteTenantService remoteTenantService;
-    @DubboReference
     private final RemoteClientService remoteClientService;
-    @DubboReference
-    private final RemoteSocialService remoteSocialService;
     /**
      * 登录方法
      *
      * @param body 登录信息
      * @return 结果
      */
-    @ApiEncrypt
+//    @ApiEncrypt
     @PostMapping("/login")
     public R<LoginVo> login(@RequestBody String body) {
         LoginBody loginBody = JsonUtils.parseObject(body, LoginBody.class);
@@ -75,15 +68,10 @@ public class TokenController {
         } else if (!UserConstants.NORMAL.equals(clientVo.getStatus())) {
             return R.fail(MessageUtils.message("auth.grant.type.blocked"));
         }
-        // 校验租户
-        sysLoginService.checkTenant(null);
         // 登录
         LoginVo loginVo = IAuthStrategy.login(body, clientVo, grantType);
 
         Long userId = LoginHelper.getUserId();
-//        scheduledExecutorService.schedule(() -> {
-//            remoteMessageService.publishMessage(userId, "欢迎登录RuoYi-Cloud-Plus微服务管理系统");
-//        }, 3, TimeUnit.SECONDS);
         return R.ok(loginVo);
     }
 
@@ -93,21 +81,21 @@ public class TokenController {
      * @param source 登录来源
      * @return 结果
      */
-    @GetMapping("/binding/{source}")
-    public R<String> authBinding(@PathVariable("source") String source,
-                                 @RequestParam String tenantId, @RequestParam String domain) {
-        SocialLoginConfigProperties obj = socialProperties.getType().get(source);
-        if (ObjectUtil.isNull(obj)) {
-            return R.fail(source + "平台账号暂不支持");
-        }
-        AuthRequest authRequest = SocialUtils.getAuthRequest(source, socialProperties);
-        Map<String, String> map = new HashMap<>();
-        map.put("tenantId", tenantId);
-        map.put("domain", domain);
-        map.put("state", AuthStateUtils.createState());
-        String authorizeUrl = authRequest.authorize(Base64.encode(JsonUtils.toJsonString(map), StandardCharsets.UTF_8));
-        return R.ok("操作成功", authorizeUrl);
-    }
+//    @GetMapping("/binding/{source}")
+//    public R<String> authBinding(@PathVariable("source") String source,
+//                                 @RequestParam String tenantId, @RequestParam String domain) {
+//        SocialLoginConfigProperties obj = socialProperties.getType().get(source);
+//        if (ObjectUtil.isNull(obj)) {
+//            return R.fail(source + "平台账号暂不支持");
+//        }
+//        AuthRequest authRequest = SocialUtils.getAuthRequest(source, socialProperties);
+//        Map<String, String> map = new HashMap<>();
+//        map.put("tenantId", tenantId);
+//        map.put("domain", domain);
+//        map.put("state", AuthStateUtils.createState());
+//        String authorizeUrl = authRequest.authorize(Base64.encode(JsonUtils.toJsonString(map), StandardCharsets.UTF_8));
+//        return R.ok("操作成功", authorizeUrl);
+//    }
 
     /**
      * 第三方登录回调业务处理 绑定授权
@@ -115,20 +103,20 @@ public class TokenController {
      * @param loginBody 请求体
      * @return 结果
      */
-    @PostMapping("/social/callback")
-    public R<Void> socialCallback(@RequestBody SocialLoginBody loginBody) {
-        // 获取第三方登录信息
-        AuthResponse<AuthUser> response = SocialUtils.loginAuth(
-            loginBody.getSource(), loginBody.getSocialCode(),
-            loginBody.getSocialState(), socialProperties);
-        AuthUser authUserData = response.getData();
-        // 判断授权响应是否成功
-        if (!response.ok()) {
-            return R.fail(response.getMsg());
-        }
-        sysLoginService.socialRegister(authUserData);
-        return R.ok();
-    }
+//    @PostMapping("/social/callback")
+//    public R<Void> socialCallback(@RequestBody SocialLoginBody loginBody) {
+//        // 获取第三方登录信息
+//        AuthResponse<AuthUser> response = SocialUtils.loginAuth(
+//            loginBody.getSource(), loginBody.getSocialCode(),
+//            loginBody.getSocialState(), socialProperties);
+//        AuthUser authUserData = response.getData();
+//        // 判断授权响应是否成功
+//        if (!response.ok()) {
+//            return R.fail(response.getMsg());
+//        }
+//        sysLoginService.socialRegister(authUserData);
+//        return R.ok();
+//    }
 
 
     /**
@@ -136,11 +124,11 @@ public class TokenController {
      *
      * @param socialId socialId
      */
-    @DeleteMapping(value = "/unlock/{socialId}")
-    public R<Void> unlockSocial(@PathVariable Long socialId) {
-        Boolean rows = remoteSocialService.deleteWithValidById(socialId);
-        return rows ? R.ok() : R.fail("取消授权失败");
-    }
+//    @DeleteMapping(value = "/unlock/{socialId}")
+//    public R<Void> unlockSocial(@PathVariable Long socialId) {
+//        Boolean rows = remoteSocialService.deleteWithValidById(socialId);
+//        return rows ? R.ok() : R.fail("取消授权失败");
+//    }
 
     /**
      * 登出方法
@@ -154,12 +142,9 @@ public class TokenController {
     /**
      * 用户注册
      */
-    @ApiEncrypt
+//    @ApiEncrypt
     @PostMapping("register")
     public R<Void> register(@RequestBody RegisterBody registerBody) {
-        if (!remoteConfigService.selectRegisterEnabled(null)) {
-            return R.fail("当前系统没有开启注册功能！");
-        }
         // 用户注册
         sysLoginService.register(registerBody);
         return R.ok();

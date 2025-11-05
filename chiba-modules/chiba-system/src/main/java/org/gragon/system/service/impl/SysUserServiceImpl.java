@@ -9,12 +9,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.gragon.common.core.constant.CacheNames;
+import org.gragon.common.core.enums.UserStatus;
 import org.gragon.common.core.exception.ServiceException;
 import org.gragon.common.core.utils.MapstructUtils;
 import org.gragon.common.core.utils.StringUtils;
 import org.gragon.common.mybatis.core.page.PageQuery;
 import org.gragon.common.mybatis.core.page.TableDataInfo;
-import org.gragon.system.api.domain.enums.UserStatus;
 import org.gragon.system.domain.SysUser;
 import org.gragon.system.domain.bo.SysUserBo;
 import org.gragon.system.domain.vo.SysUserVo;
@@ -48,7 +48,7 @@ public class SysUserServiceImpl implements ISysUserService {
     private Wrapper<SysUser> buildQueryWrapper(SysUserBo user) {
         Map<String, Object> params = user.getParams();
         return Wrappers.<SysUser>lambdaQuery()
-                .eq(SysUser::getStatus, UserStatus.ACTIVE)
+                .eq(SysUser::getStatus, UserStatus.OK)
                 .eq(ObjectUtil.isNotNull(user.getUserId()), SysUser::getUserId, user.getUserId())
                 .like(StringUtils.isNotBlank(user.getUserName()), SysUser::getUserName, user.getUserName())
                 .like(StringUtils.isNotBlank(user.getPhoneNumber()), SysUser::getPhoneNumber, user.getPhoneNumber())

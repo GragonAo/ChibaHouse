@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.gragon.common.core.enums.UserStatus;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
-import org.gragon.system.api.domain.enums.UserRoleType;
-import org.gragon.system.api.domain.enums.UserSexType;
-import org.gragon.system.api.domain.enums.UserStatus;
+import org.gragon.common.core.enums.UserRoleType;
+import org.gragon.common.core.enums.UserSexType;
 
 import java.io.Serial;
 

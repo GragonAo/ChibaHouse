@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import org.gragon.common.core.constant.RegexConstants;
 import org.gragon.common.core.xss.Xss;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
-import org.gragon.system.api.domain.enums.UserSexType;
+import org.gragon.common.core.enums.UserSexType;
 
 /**
  * 个人信息业务处理

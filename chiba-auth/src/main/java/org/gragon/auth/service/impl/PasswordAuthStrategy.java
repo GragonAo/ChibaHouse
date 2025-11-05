@@ -49,7 +49,6 @@ public class PasswordAuthStrategy implements IAuthStrategy {
     public LoginVo login(String body, RemoteClientVo client) {
         PasswordLoginBody loginBody = JsonUtils.parseObject(body, PasswordLoginBody.class);
         ValidatorUtils.validate(loginBody);
-//        String tenantId = loginBody.getTenantId();
         String username = loginBody.getUsername();
         String password = loginBody.getPassword();
         String code = loginBody.getCode();
@@ -59,13 +58,11 @@ public class PasswordAuthStrategy implements IAuthStrategy {
         if (captchaProperties.getEnabled()) {
             validateCaptcha(null, username, code, uuid);
         }
-//        LoginUser loginUser = TenantHelper.dynamic(tenantId, () -> {
-//            LoginUser user = remoteUserService.getUserInfo(username, tenantId);
-//            loginService.checkLogin(LoginType.PASSWORD, tenantId, username, () -> !BCrypt.checkpw(password, user.getPassword()));
-//            return user;
-////        });
-//        loginUser.setClientKey(client.getClientKey());
-//        loginUser.setDeviceType(client.getDeviceType());
+        LoginUser loginUser = remoteUserService.getUserInfo(username);
+        loginService.checkLogin(LoginType.PASSWORD, username, () -> !BCrypt.checkpw(password, loginUser.getPassword()));
+
+        loginUser.setClientKey(client.getClientKey());
+        loginUser.setDeviceType(client.getDeviceType());
         SaLoginModel model = new SaLoginModel();
         model.setDevice(client.getDeviceType());
         // 自定义分配 不同用户体系 不同 token 授权时间 不设置默认走全局 yml 配置
@@ -74,7 +71,7 @@ public class PasswordAuthStrategy implements IAuthStrategy {
         model.setActiveTimeout(client.getActiveTimeout());
         model.setExtra(LoginHelper.CLIENT_KEY, client.getClientId());
         // 生成token
-//        LoginHelper.login(loginUser, model);
+        LoginHelper.login(loginUser, model);
 
         LoginVo loginVo = new LoginVo();
         loginVo.setAccessToken(StpUtil.getTokenValue());
@@ -95,11 +92,11 @@ public class PasswordAuthStrategy implements IAuthStrategy {
         String captcha = RedisUtils.getCacheObject(verifyKey);
         RedisUtils.deleteObject(verifyKey);
         if (captcha == null) {
-            loginService.recordLogininfor(tenantId, username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire"));
+            loginService.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire"));
             throw new CaptchaExpireException();
         }
         if (!code.equalsIgnoreCase(captcha)) {
-            loginService.recordLogininfor(tenantId, username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error"));
+            loginService.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error"));
             throw new CaptchaException();
         }
     }

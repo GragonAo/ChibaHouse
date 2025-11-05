@@ -1,4 +1,4 @@
-package org.gragon.system.api.domain.enums;
+package org.gragon.common.core.enums;
 
 public enum UserRoleType {
     SUPER_ADMIN,
