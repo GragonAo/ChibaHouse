@@ -39,10 +39,6 @@ public class ItemBo extends BaseEntity {
      */
     Long categoryId;
     /**
-     * 物品编码
-     */
-    String itemCode;
-    /**
      * 物品名称
      */
     String name;

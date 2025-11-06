@@ -20,6 +20,13 @@ import org.springframework.web.bind.annotation.*;
 public class ItemController extends BaseController {
     private final ItemService itemService;
 
+    /**
+     * 查询Item列表
+     *
+     * @param bo        Item查询对象
+     * @param pageQuery 分页查询对象
+     * @return Item分页数据
+     */
     @GetMapping("/list")
     public TableDataInfo<ItemInfoVo> list(ItemBo bo, PageQuery pageQuery) {
         TableDataInfo<ItemVo> itemPageList = itemService.getItemPageList(bo, pageQuery);
@@ -31,6 +38,12 @@ public class ItemController extends BaseController {
         return itemPageInfo;
     }
 
+    /**
+     * 获取Item详细信息
+     *
+     * @param id Item主键
+     * @return Item详细信息
+     */
     @GetMapping("/{itemId}")
     public R<ItemInfoVo> getItem(@PathVariable(value = "itemId", required = true) Long id) {
         ItemVo itemVo = itemService.getItemById(id);
@@ -39,6 +52,12 @@ public class ItemController extends BaseController {
         return R.ok(itemInfoVo);
     }
 
+    /**
+     * 新增Item
+     *
+     * @param itemBo Item新增对象
+     * @return 结果
+     */
     @PostMapping()
     public R<Void> addItem(@Validated @RequestBody ItemBo itemBo) {
         Long userId = LoginHelper.getUserId();
@@ -48,12 +67,24 @@ public class ItemController extends BaseController {
         return toAjax(itemService.insertItem(itemBo));
     }
 
+    /**
+     * 删除Item
+     *
+     * @param id Item主键
+     * @return 结果
+     */
     @DeleteMapping("/{itemId}")
     public R<Void> deleteItem(@PathVariable(value = "itemId", required = true) Long id) {
         // TODO 权限校验
         return toAjax(itemService.deleteItem(id));
     }
 
+    /**
+     * 修改Item
+     *
+     * @param itemBo Item修改对象
+     * @return 结果
+     */
     @PutMapping()
     public R<Void> updateItem(@Validated @RequestBody ItemBo itemBo) {
         Long userId = LoginHelper.getUserId();
