@@ -85,12 +85,14 @@ public class ItemServiceImpl implements ItemService {
     @Transactional(rollbackFor = Exception.class)
     public int updateItem(ItemBo itemBo) {
         Item item = baseMapper.selectById(itemBo.getId());
+        if(item == null) return 0;
         Item newItem = MapstructUtils.convert(itemBo, Item.class);
 
         ItemOperationLog log = new ItemOperationLog();
-        Item oldItem = ObjectDiffUtils.getDiffObjects(item, newItem, ObjectDiffUtils.DiffType.OLD_VALUES);
-        log.setNew_item_data(JsonUtils.toJsonString(newItem));
-        log.setOld_item_data(JsonUtils.toJsonString(oldItem));
+        ObjectDiffUtils.DiffNode node = ObjectDiffUtils.getDiffObjects(item, newItem,Item.class);
+        log.setItemId(itemBo.getId());
+        log.setNewItemData(JsonUtils.toJsonString(node.getNewObj(),true,true));
+        log.setOldItemData(JsonUtils.toJsonString(node.getOldObj(),true,true));
         logMapper.insert(log);
 
         newItem.setUpdateTime(LocalDateTime.now());

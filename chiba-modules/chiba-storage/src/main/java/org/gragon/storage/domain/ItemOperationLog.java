@@ -18,17 +18,17 @@ public class ItemOperationLog extends BaseEntity {
     /**
      * 物品ID
      */
-    Long item_id;
+    Long itemId;
     /**
      * 操作类型
      */
-    String operation_type;
+    String operationType;
     /**
      * 旧物品数据(JSON格式)
      */
-    String old_item_data;
+    String oldItemData;
     /**
      * 新物品数据(JSON格式)
      */
-    String new_item_data;
+    String newItemData;
 }

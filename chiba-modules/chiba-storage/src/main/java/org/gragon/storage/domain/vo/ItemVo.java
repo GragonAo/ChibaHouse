@@ -1,16 +1,20 @@
 package org.gragon.storage.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
+import org.gragon.storage.domain.Item;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
 /**
  * 物品对象 item
  */
+@Data
+@AutoMapper(target = Item.class)
 public class ItemVo extends BaseEntity {
 
     @Serial
@@ -71,7 +75,8 @@ public class ItemVo extends BaseEntity {
     /**
      * 购买日期
      */
-    Float purchaseDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
+    LocalDateTime purchaseDate;
     /**
      * 条形码
      */
@@ -107,9 +112,11 @@ public class ItemVo extends BaseEntity {
     /**
      * 到期日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
     LocalDateTime expiryDate;
     /**
      * 维护日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
     LocalDateTime maintenanceDate;
 }

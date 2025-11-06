@@ -3,10 +3,12 @@ package org.gragon.common.json.utils;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.gragon.common.core.utils.SpringUtils;
@@ -38,14 +40,56 @@ public class JsonUtils {
      * @throws RuntimeException 如果转换过程中发生JSON处理异常，则抛出运行时异常
      */
     public static String toJsonString(Object object) {
+        return toJsonString(object, false, false); // 保持原有行为
+    }
+
+    /**
+     * 增强的toJsonString方法
+     *
+     * @param object 要转换的对象
+     * @param ignoreNull 是否忽略null值
+     * @param includeType 是否包含类信息
+     * @return JSON格式的字符串
+     */
+    public static String toJsonString(Object object, boolean ignoreNull, boolean includeType) {
         if (ObjectUtil.isNull(object)) {
             return null;
         }
         try {
-            return OBJECT_MAPPER.writeValueAsString(object);
+            ObjectMapper mapper = OBJECT_MAPPER.copy();
+
+            // 配置忽略null值
+            if (ignoreNull) {
+                mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            }
+
+            if (includeType) {
+                // 包含类信息的格式
+                ObjectNode rootNode = mapper.createObjectNode();
+                rootNode.put("@type", object.getClass().getName());
+                rootNode.set("@data", mapper.valueToTree(object));
+                return mapper.writeValueAsString(rootNode);
+            } else {
+                // 普通格式
+                return mapper.writeValueAsString(object);
+            }
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * 忽略null值的toJsonString
+     */
+    public static String toJsonStringIgnoreNull(Object object) {
+        return toJsonString(object, true, false);
+    }
+
+    /**
+     * 包含类信息的toJsonString
+     */
+    public static String toJsonStringWithType(Object object) {
+        return toJsonString(object, true, true);
     }
 
     /**

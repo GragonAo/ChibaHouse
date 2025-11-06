@@ -13,6 +13,9 @@ import org.gragon.storage.service.ItemService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Validated
 @RequiredArgsConstructor
 @RestController
@@ -30,12 +33,12 @@ public class ItemController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo<ItemInfoVo> list(ItemBo bo, PageQuery pageQuery) {
         TableDataInfo<ItemVo> itemPageList = itemService.getItemPageList(bo, pageQuery);
-        TableDataInfo<ItemInfoVo> itemPageInfo = new TableDataInfo<>();
+        List<ItemInfoVo> itemInfoVoList = new ArrayList<>();
         for (ItemVo item : itemPageList.getRows()) {
             // TODO 获取Item所属空间信息
-            itemPageInfo.getRows().add(new ItemInfoVo(item, null));
+            itemInfoVoList.add(new ItemInfoVo(item, null));
         }
-        return itemPageInfo;
+        return TableDataInfo.build(itemInfoVoList,itemPageList.getTotal());
     }
 
     /**

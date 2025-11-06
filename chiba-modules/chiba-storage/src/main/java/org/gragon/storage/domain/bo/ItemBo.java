@@ -1,5 +1,6 @@
 package org.gragon.storage.domain.bo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -73,7 +74,8 @@ public class ItemBo extends BaseEntity {
     /**
      * 购买日期
      */
-    Float purchaseDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
+    LocalDateTime purchaseDate;
     /**
      * 图片列表
      */
@@ -83,19 +85,17 @@ public class ItemBo extends BaseEntity {
      */
     List<String> documents;
     /**
-     * 自定义字段
-     */
-    Object customFields;
-    /**
      * 重要等级
      */
     String importanceLevel;
     /**
      * 到期日期
      */
-    LocalDateTime expiryDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
+    LocalDateTime  expiryDate;
     /**
      * 维护日期
      */
-    LocalDateTime maintenanceDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
+    LocalDateTime  maintenanceDate;
 }

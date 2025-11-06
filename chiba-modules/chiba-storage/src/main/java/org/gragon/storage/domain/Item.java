@@ -1,7 +1,9 @@
 package org.gragon.storage.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
 
@@ -9,11 +11,12 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
-@TableName("items")
 /**
  * 物品对象 item
  */
+
+@Data
+@TableName(value = "items", autoResultMap = true)
 public class Item extends BaseEntity {
 
     @Serial
@@ -74,7 +77,7 @@ public class Item extends BaseEntity {
     /**
      * 购买日期
      */
-    Float purchaseDate;
+    LocalDateTime purchaseDate;
     /**
      * 条形码
      */
@@ -94,15 +97,13 @@ public class Item extends BaseEntity {
     /**
      * 图片列表
      */
+    @TableField(typeHandler = JacksonTypeHandler.class)
     List<String> images;
     /**
      * 文档列表
      */
+    @TableField(typeHandler = JacksonTypeHandler.class)
     List<String> documents;
-    /**
-     * 自定义字段
-     */
-    Object customFields;
     /**
      * 重要等级
      */
