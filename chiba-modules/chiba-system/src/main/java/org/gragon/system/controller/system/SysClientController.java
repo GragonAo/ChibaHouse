@@ -15,7 +15,7 @@ import org.gragon.common.mybatis.core.page.TableDataInfo;
 import org.gragon.common.web.core.BaseController;
 import org.gragon.system.domain.bo.SysClientBo;
 import org.gragon.system.domain.vo.SysClientVo;
-import org.gragon.system.service.ISysClientService;
+import org.gragon.system.service.SysClientService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +32,7 @@ import java.util.List;
 @RequestMapping("/client")
 public class SysClientController extends BaseController {
 
-    private final ISysClientService sysClientService;
+    private final SysClientService sysClientService;
 
     /**
      * 查询客户端管理列表

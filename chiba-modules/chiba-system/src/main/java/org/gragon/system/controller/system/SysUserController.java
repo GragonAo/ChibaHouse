@@ -18,7 +18,7 @@ import org.gragon.system.domain.bo.SysUserBo;
 import org.gragon.system.domain.vo.SysUserInfoVo;
 import org.gragon.system.domain.vo.SysUserVo;
 import org.gragon.system.domain.vo.UserInfoVo;
-import org.gragon.system.service.ISysUserService;
+import org.gragon.system.service.SysUserService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +35,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class SysUserController extends BaseController {
 
-    private final ISysUserService userService;
+    private final SysUserService userService;
 
     /**
      * 获取用户列表

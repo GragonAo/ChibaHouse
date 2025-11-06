@@ -1,40 +1,30 @@
 package org.gragon.auth.controller;
 
-import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.ObjectUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.request.AuthRequest;
-import me.zhyd.oauth.utils.AuthStateUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.gragon.auth.domain.vo.LoginVo;
 import org.gragon.auth.form.RegisterBody;
-import org.gragon.auth.form.SocialLoginBody;
-import org.gragon.auth.service.IAuthStrategy;
+import org.gragon.auth.service.AuthStrategy;
 import org.gragon.auth.service.SysLoginService;
 import org.gragon.common.core.constant.UserConstants;
 import org.gragon.common.core.domain.R;
 import org.gragon.common.core.domain.model.LoginBody;
-import org.gragon.common.core.utils.*;
-import org.gragon.common.encrypt.annotation.ApiEncrypt;
+import org.gragon.common.core.utils.MessageUtils;
+import org.gragon.common.core.utils.StringUtils;
+import org.gragon.common.core.utils.ValidatorUtils;
 import org.gragon.common.json.utils.JsonUtils;
 import org.gragon.common.satoken.utils.LoginHelper;
-import org.gragon.common.social.config.properties.SocialLoginConfigProperties;
 import org.gragon.common.social.config.properties.SocialProperties;
-import org.gragon.common.social.utils.SocialUtils;
 import org.gragon.system.api.RemoteClientService;
 import org.gragon.system.api.domain.vo.RemoteClientVo;
-import org.springframework.web.bind.annotation.*;
-
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * token 控制
- *
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -45,6 +35,7 @@ public class TokenController {
 
     @DubboReference
     private final RemoteClientService remoteClientService;
+
     /**
      * 登录方法
      *
@@ -69,7 +60,7 @@ public class TokenController {
             return R.fail(MessageUtils.message("auth.grant.type.blocked"));
         }
         // 登录
-        LoginVo loginVo = IAuthStrategy.login(body, clientVo, grantType);
+        LoginVo loginVo = AuthStrategy.login(body, clientVo, grantType);
 
         Long userId = LoginHelper.getUserId();
         return R.ok(loginVo);

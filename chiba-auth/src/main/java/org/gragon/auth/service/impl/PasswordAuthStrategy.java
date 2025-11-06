@@ -9,7 +9,7 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.gragon.auth.domain.vo.LoginVo;
 import org.gragon.auth.form.PasswordLoginBody;
 import org.gragon.auth.properties.CaptchaProperties;
-import org.gragon.auth.service.IAuthStrategy;
+import org.gragon.auth.service.AuthStrategy;
 import org.gragon.auth.service.SysLoginService;
 import org.gragon.common.core.constant.Constants;
 import org.gragon.common.core.constant.GlobalConstants;
@@ -22,7 +22,6 @@ import org.gragon.common.core.utils.ValidatorUtils;
 import org.gragon.common.json.utils.JsonUtils;
 import org.gragon.common.redis.utils.RedisUtils;
 import org.gragon.common.satoken.utils.LoginHelper;
-//import org.gragon.common.tenant.helper.TenantHelper;
 import org.gragon.system.api.RemoteUserService;
 import org.gragon.system.api.domain.vo.RemoteClientVo;
 import org.gragon.system.api.model.LoginUser;
@@ -34,9 +33,9 @@ import org.springframework.stereotype.Service;
  * @author Michelle.Chung
  */
 @Slf4j
-@Service("password" + IAuthStrategy.BASE_NAME)
+@Service("password" + AuthStrategy.BASE_NAME)
 @RequiredArgsConstructor
-public class PasswordAuthStrategy implements IAuthStrategy {
+public class PasswordAuthStrategy implements AuthStrategy {
 
     private final CaptchaProperties captchaProperties;
 

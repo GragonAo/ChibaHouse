@@ -15,7 +15,7 @@ import org.gragon.system.api.model.XcxLoginUser;
 import org.gragon.system.domain.SysUser;
 import org.gragon.system.domain.bo.SysUserBo;
 import org.gragon.system.domain.vo.SysUserVo;
-import org.gragon.system.service.ISysUserService;
+import org.gragon.system.service.SysUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +30,7 @@ import java.util.List;
 @DubboService
 public class RemoteUserServiceImpl implements RemoteUserService {
 
-    private final ISysUserService userService;
+    private final SysUserService userService;
 
     /**
      * 通过用户名查询用户信息
@@ -55,7 +55,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     /**
      * 通过用户id查询用户信息
      *
-     * @param userId   用户id
+     * @param userId 用户id
      * @return 结果
      */
     @Override
@@ -95,7 +95,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     /**
      * 通过邮箱查询用户信息
      *
-     * @param email    邮箱
+     * @param email 邮箱
      * @return 结果
      */
     @Override

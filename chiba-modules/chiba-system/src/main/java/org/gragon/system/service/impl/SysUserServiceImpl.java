@@ -19,7 +19,7 @@ import org.gragon.system.domain.SysUser;
 import org.gragon.system.domain.bo.SysUserBo;
 import org.gragon.system.domain.vo.SysUserVo;
 import org.gragon.system.mapper.SysUserMapper;
-import org.gragon.system.service.ISysUserService;
+import org.gragon.system.service.SysUserService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -30,12 +30,11 @@ import java.util.Map;
 
 /**
  * 用户 业务层处理
- *
  */
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class SysUserServiceImpl implements ISysUserService {
+public class SysUserServiceImpl implements SysUserService {
 
     private final SysUserMapper baseMapper;
 
@@ -117,8 +116,8 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public boolean checkUserNameUnique(SysUserBo user) {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysUser>()
-            .eq(SysUser::getUserName, user.getUserName())
-            .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getUserId, user.getUserId()));
+                .eq(SysUser::getUserName, user.getUserName())
+                .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getUserId, user.getUserId()));
         return !exist;
     }
 
@@ -130,8 +129,8 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public boolean checkPhoneUnique(SysUserBo user) {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysUser>()
-            .eq(SysUser::getPhoneNumber, user.getPhoneNumber())
-            .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getUserId, user.getUserId()));
+                .eq(SysUser::getPhoneNumber, user.getPhoneNumber())
+                .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getUserId, user.getUserId()));
         return !exist;
     }
 
@@ -143,8 +142,8 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public boolean checkEmailUnique(SysUserBo user) {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysUser>()
-            .eq(SysUser::getEmail, user.getEmail())
-            .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getUserId, user.getUserId()));
+                .eq(SysUser::getEmail, user.getEmail())
+                .ne(ObjectUtil.isNotNull(user.getUserId()), SysUser::getUserId, user.getUserId()));
         return !exist;
     }
 
@@ -213,9 +212,9 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public int updateUserStatus(Long userId, UserStatus status) {
         return baseMapper.update(null,
-            new LambdaUpdateWrapper<SysUser>()
-                .set(SysUser::getStatus, status)
-                .eq(SysUser::getUserId, userId));
+                new LambdaUpdateWrapper<SysUser>()
+                        .set(SysUser::getStatus, status)
+                        .eq(SysUser::getUserId, userId));
     }
 
     /**
@@ -228,12 +227,12 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public int updateUserProfile(SysUserBo user) {
         return baseMapper.update(null,
-            new LambdaUpdateWrapper<SysUser>()
-                .set(ObjectUtil.isNotNull(user.getNickName()), SysUser::getNickName, user.getNickName())
-                .set(SysUser::getPhoneNumber, user.getPhoneNumber())
-                .set(SysUser::getEmail, user.getEmail())
-                .set(SysUser::getSex, user.getSex())
-                .eq(SysUser::getUserId, user.getUserId()));
+                new LambdaUpdateWrapper<SysUser>()
+                        .set(ObjectUtil.isNotNull(user.getNickName()), SysUser::getNickName, user.getNickName())
+                        .set(SysUser::getPhoneNumber, user.getPhoneNumber())
+                        .set(SysUser::getEmail, user.getEmail())
+                        .set(SysUser::getSex, user.getSex())
+                        .eq(SysUser::getUserId, user.getUserId()));
     }
 
     /**
@@ -246,9 +245,9 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public boolean updateUserAvatar(Long userId, Long avatar) {
         return baseMapper.update(null,
-            new LambdaUpdateWrapper<SysUser>()
-                .set(SysUser::getAvatarUrl, avatar)
-                .eq(SysUser::getUserId, userId)) > 0;
+                new LambdaUpdateWrapper<SysUser>()
+                        .set(SysUser::getAvatarUrl, avatar)
+                        .eq(SysUser::getUserId, userId)) > 0;
     }
 
     /**
@@ -261,9 +260,9 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public int resetUserPwd(Long userId, String password) {
         return baseMapper.update(null,
-            new LambdaUpdateWrapper<SysUser>()
-                .set(SysUser::getPassword, password)
-                .eq(SysUser::getUserId, userId));
+                new LambdaUpdateWrapper<SysUser>()
+                        .set(SysUser::getPassword, password)
+                        .eq(SysUser::getUserId, userId));
     }
 
     /**
@@ -276,7 +275,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public String selectUserNameById(Long userId) {
         SysUser sysUser = baseMapper.selectOne(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getUserName).eq(SysUser::getUserId, userId));
+                .select(SysUser::getUserName).eq(SysUser::getUserId, userId));
         return ObjectUtil.isNull(sysUser) ? null : sysUser.getUserName();
     }
 
@@ -290,7 +289,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Cacheable(cacheNames = CacheNames.SYS_NICKNAME, key = "#userId")
     public String selectNicknameById(Long userId) {
         SysUser sysUser = baseMapper.selectOne(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getNickName).eq(SysUser::getUserId, userId));
+                .select(SysUser::getNickName).eq(SysUser::getUserId, userId));
         return ObjectUtil.isNull(sysUser) ? null : sysUser.getNickName();
     }
 
@@ -303,7 +302,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public String selectPhoneNumberById(Long userId) {
         SysUser sysUser = baseMapper.selectOne(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getPhoneNumber).eq(SysUser::getUserId, userId));
+                .select(SysUser::getPhoneNumber).eq(SysUser::getUserId, userId));
         return ObjectUtil.isNull(sysUser) ? null : sysUser.getPhoneNumber();
     }
 
@@ -316,7 +315,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public String selectEmailById(Long userId) {
         SysUser sysUser = baseMapper.selectOne(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getEmail).eq(SysUser::getUserId, userId));
+                .select(SysUser::getEmail).eq(SysUser::getUserId, userId));
         return ObjectUtil.isNull(sysUser) ? null : sysUser.getEmail();
     }
 

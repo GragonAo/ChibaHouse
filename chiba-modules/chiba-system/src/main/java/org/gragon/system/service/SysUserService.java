@@ -10,9 +10,8 @@ import java.util.List;
 
 /**
  * 用户 业务层
- *
  */
-public interface ISysUserService {
+public interface SysUserService {
 
 
     TableDataInfo<SysUserVo> selectPageUserList(SysUserBo user, PageQuery pageQuery);
@@ -43,6 +42,7 @@ public interface ISysUserService {
 
     /**
      * 通过用户邮箱查询用户
+     *
      * @param email 用户ID
      * @return 用户对象信息
      */

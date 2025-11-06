@@ -10,9 +10,8 @@ import java.util.List;
 
 /**
  * 客户端管理Service接口
- *
  */
-public interface ISysClientService {
+public interface SysClientService {
 
     /**
      * 查询客户端管理

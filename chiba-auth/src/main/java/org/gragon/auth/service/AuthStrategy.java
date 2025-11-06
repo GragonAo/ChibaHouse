@@ -7,10 +7,8 @@ import org.gragon.system.api.domain.vo.RemoteClientVo;
 
 /**
  * 授权策略
- *
- * @author Michelle.Chung
  */
-public interface IAuthStrategy {
+public interface AuthStrategy {
 
     String BASE_NAME = "AuthStrategy";
 
@@ -28,7 +26,7 @@ public interface IAuthStrategy {
         if (!SpringUtils.containsBean(beanName)) {
             throw new ServiceException("授权类型不正确!");
         }
-        IAuthStrategy instance = SpringUtils.getBean(beanName);
+        AuthStrategy instance = SpringUtils.getBean(beanName);
         return instance.login(body, client);
     }
 

@@ -16,7 +16,7 @@ import org.gragon.system.domain.SysClient;
 import org.gragon.system.domain.bo.SysClientBo;
 import org.gragon.system.domain.vo.SysClientVo;
 import org.gragon.system.mapper.SysClientMapper;
-import org.gragon.system.service.ISysClientService;
+import org.gragon.system.service.SysClientService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -26,12 +26,11 @@ import java.util.List;
 
 /**
  * 客户端管理Service业务层处理
- *
  */
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class SysClientServiceImpl implements ISysClientService {
+public class SysClientServiceImpl implements SysClientService {
 
     private final SysClientMapper baseMapper;
 
@@ -121,9 +120,9 @@ public class SysClientServiceImpl implements ISysClientService {
     @Override
     public int updateUserStatus(String clientId, String status) {
         return baseMapper.update(null,
-            new LambdaUpdateWrapper<SysClient>()
-                .set(SysClient::getStatus, status)
-                .eq(SysClient::getClientId, clientId));
+                new LambdaUpdateWrapper<SysClient>()
+                        .set(SysClient::getStatus, status)
+                        .eq(SysClient::getClientId, clientId));
     }
 
     /**

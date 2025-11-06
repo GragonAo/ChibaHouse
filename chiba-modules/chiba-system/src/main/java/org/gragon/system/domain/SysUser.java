@@ -18,7 +18,7 @@ import java.io.Serial;
 
 @Data
 @NoArgsConstructor
-@TableName("sys_user")
+@TableName("sys_users")
 public class SysUser extends BaseEntity {
 
     @Serial
