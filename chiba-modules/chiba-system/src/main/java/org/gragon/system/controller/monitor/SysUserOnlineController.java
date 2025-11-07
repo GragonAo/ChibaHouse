@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 
 /**
  * 在线用户监控
- *
  */
 @RequiredArgsConstructor
 @RestController
@@ -53,16 +52,16 @@ public class SysUserOnlineController extends BaseController {
         }
         if (StringUtils.isNotEmpty(ipaddr) && StringUtils.isNotEmpty(userName)) {
             userOnlineDTOList = StreamUtils.filter(userOnlineDTOList, userOnline ->
-                StringUtils.equals(ipaddr, userOnline.getIpaddr()) &&
-                    StringUtils.equals(userName, userOnline.getUserName())
+                    StringUtils.equals(ipaddr, userOnline.getIpaddr()) &&
+                            StringUtils.equals(userName, userOnline.getUserName())
             );
         } else if (StringUtils.isNotEmpty(ipaddr)) {
             userOnlineDTOList = StreamUtils.filter(userOnlineDTOList, userOnline ->
-                StringUtils.equals(ipaddr, userOnline.getIpaddr())
+                    StringUtils.equals(ipaddr, userOnline.getIpaddr())
             );
         } else if (StringUtils.isNotEmpty(userName)) {
             userOnlineDTOList = StreamUtils.filter(userOnlineDTOList, userOnline ->
-                StringUtils.equals(userName, userOnline.getUserName())
+                    StringUtils.equals(userName, userOnline.getUserName())
             );
         }
         Collections.reverse(userOnlineDTOList);
@@ -95,9 +94,9 @@ public class SysUserOnlineController extends BaseController {
         // 获取指定账号 id 的 token 集合
         List<String> tokenIds = StpUtil.getTokenValueListByLoginId(StpUtil.getLoginIdAsString());
         List<SysUserOnline> userOnlineDTOList = tokenIds.stream()
-            .filter(token -> StpUtil.stpLogic.getTokenActiveTimeoutByToken(token) >= -1)
-            .map(token -> (SysUserOnline) RedisUtils.getCacheObject(CacheConstants.ONLINE_TOKEN_KEY + token))
-            .collect(Collectors.toList());
+                .filter(token -> StpUtil.stpLogic.getTokenActiveTimeoutByToken(token) >= -1)
+                .map(token -> (SysUserOnline) RedisUtils.getCacheObject(CacheConstants.ONLINE_TOKEN_KEY + token))
+                .collect(Collectors.toList());
         //复制和处理 SysUserOnline 对象列表
         Collections.reverse(userOnlineDTOList);
         userOnlineDTOList.removeAll(Collections.singleton(null));
@@ -117,9 +116,9 @@ public class SysUserOnlineController extends BaseController {
             // 获取指定账号 id 的 token 集合
             List<String> keys = StpUtil.getTokenValueListByLoginId(StpUtil.getLoginIdAsString());
             keys.stream()
-                .filter(key -> key.equals(tokenId))
-                .findFirst()
-                .ifPresent(key -> StpUtil.kickoutByTokenValue(tokenId));
+                    .filter(key -> key.equals(tokenId))
+                    .findFirst()
+                    .ifPresent(key -> StpUtil.kickoutByTokenValue(tokenId));
         } catch (NotLoginException ignored) {
         }
         return R.ok();

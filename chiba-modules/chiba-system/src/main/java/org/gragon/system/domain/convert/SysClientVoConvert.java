@@ -9,7 +9,6 @@ import org.mapstruct.ReportingPolicy;
 
 /**
  * 客户端数据转换器
- *
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SysClientVoConvert extends BaseMapper<SysClientVo, RemoteClientVo> {

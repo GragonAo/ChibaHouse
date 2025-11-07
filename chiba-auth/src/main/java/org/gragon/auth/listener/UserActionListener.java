@@ -10,19 +10,12 @@ import cn.hutool.http.useragent.UserAgentUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.gragon.common.core.constant.CacheConstants;
-import org.gragon.common.core.constant.Constants;
-import org.gragon.common.core.utils.MessageUtils;
 import org.gragon.common.core.utils.ServletUtils;
-import org.gragon.common.core.utils.SpringUtils;
 import org.gragon.common.core.utils.ip.AddressUtils;
-import org.gragon.common.redis.utils.RedisUtils;
 import org.gragon.common.satoken.utils.LoginHelper;
 import org.gragon.system.api.RemoteUserService;
 import org.gragon.system.api.domain.SysUserOnline;
 import org.springframework.stereotype.Component;
-
-import java.time.Duration;
 
 /**
  * 用户行为 侦听器的实现

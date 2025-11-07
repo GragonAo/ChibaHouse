@@ -32,7 +32,7 @@ public class InjectionMetaObjectHandler implements MetaObjectHandler {
             if (ObjectUtil.isNotNull(metaObject) && metaObject.getOriginalObject() instanceof BaseEntity baseEntity) {
                 // 获取当前时间作为创建时间和更新时间，如果创建时间不为空，则使用创建时间，否则使用当前时间
                 LocalDateTime current = ObjectUtil.isNotNull(baseEntity.getCreateTime())
-                    ? baseEntity.getCreateTime() : LocalDateTime.now();
+                        ? baseEntity.getCreateTime() : LocalDateTime.now();
                 baseEntity.setCreateTime(current);
                 baseEntity.setUpdateTime(current);
 
@@ -47,9 +47,9 @@ public class InjectionMetaObjectHandler implements MetaObjectHandler {
                     }
                 }
             } else {
-                Date date = new Date();
-                this.strictInsertFill(metaObject, "createTime", Date.class, date);
-                this.strictInsertFill(metaObject, "updateTime", Date.class, date);
+                LocalDateTime date = LocalDateTime.now();
+                this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, date);
+                this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, date);
             }
         } catch (Exception e) {
             throw new ServiceException("自动注入异常 => " + e.getMessage(), HttpStatus.HTTP_UNAUTHORIZED);

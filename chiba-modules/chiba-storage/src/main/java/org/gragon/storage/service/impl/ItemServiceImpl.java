@@ -70,8 +70,6 @@ public class ItemServiceImpl implements ItemService {
      */
     public int insertItem(ItemBo itemBo) {
         Item item = MapstructUtils.convert(itemBo, Item.class);
-        item.setCreateTime(LocalDateTime.now());
-        item.setUpdateTime(LocalDateTime.now());
         // TODO 生成 (条形码、二维码) 编码
         return baseMapper.insert(item);
     }
@@ -85,14 +83,14 @@ public class ItemServiceImpl implements ItemService {
     @Transactional(rollbackFor = Exception.class)
     public int updateItem(ItemBo itemBo) {
         Item item = baseMapper.selectById(itemBo.getId());
-        if(item == null) return 0;
+        if (item == null) return 0;
         Item newItem = MapstructUtils.convert(itemBo, Item.class);
 
         ItemOperationLog log = new ItemOperationLog();
-        ObjectDiffUtils.DiffNode node = ObjectDiffUtils.getDiffObjects(item, newItem,Item.class);
+        ObjectDiffUtils.DiffNode node = ObjectDiffUtils.getDiffObjects(item, newItem, Item.class);
         log.setItemId(itemBo.getId());
-        log.setNewItemData(JsonUtils.toJsonString(node.getNewObj(),true,true));
-        log.setOldItemData(JsonUtils.toJsonString(node.getOldObj(),true,true));
+        log.setNewItemData(JsonUtils.toJsonString(node.getNewObj(), true, true));
+        log.setOldItemData(JsonUtils.toJsonString(node.getOldObj(), true, true));
         logMapper.insert(log);
 
         newItem.setUpdateTime(LocalDateTime.now());

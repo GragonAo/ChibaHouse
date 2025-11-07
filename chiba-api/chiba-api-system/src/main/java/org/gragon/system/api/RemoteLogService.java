@@ -5,7 +5,6 @@ import org.gragon.system.api.domain.bo.RemoteOperLogBo;
 
 /**
  * 日志服务
- *
  */
 public interface RemoteLogService {
 

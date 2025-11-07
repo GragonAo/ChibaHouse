@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * 用户服务
- *
  */
 public interface RemoteUserService {
 
@@ -26,7 +25,7 @@ public interface RemoteUserService {
     /**
      * 通过用户id查询用户信息
      *
-     * @param userId   用户id
+     * @param userId 用户id
      * @return 结果
      */
     LoginUser getUserInfo(Long userId) throws UserException;
@@ -42,8 +41,7 @@ public interface RemoteUserService {
     /**
      * 通过邮箱查询用户信息
      *
-     * @param email    邮箱
-     
+     * @param email 邮箱
      * @return 结果
      */
     LoginUser getUserInfoByEmail(String email) throws UserException;

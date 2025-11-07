@@ -19,7 +19,6 @@ import java.io.Serializable;
 
 /**
  * 用户信息业务对象 sys_user
- *
  */
 @Data
 @NoArgsConstructor

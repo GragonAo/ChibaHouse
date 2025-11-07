@@ -1,17 +1,19 @@
-package org.gragon.storage.domain;
+package org.gragon.storage.domain.bo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
+import org.gragon.storage.domain.StorageSpace;
 
 import java.io.Serial;
 import java.util.List;
 
 @Data
-@TableName(value = "storage_spaces", autoResultMap = true)
-public class StorageSpace extends BaseEntity {
+@EqualsAndHashCode(callSuper = true)
+@AutoMapper(target = StorageSpace.class, reverseConvertGenerate = false)
+public class StorageSpaceBo extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,6 +21,7 @@ public class StorageSpace extends BaseEntity {
     /**
      * 存储空间ID
      */
+    @TableId
     Long id;
     /**
      * 父存储空间ID
@@ -29,17 +32,9 @@ public class StorageSpace extends BaseEntity {
      */
     Long ownerId;
     /**
-     * 存储空间编码
-     */
-    String spaceCode;
-    /**
      * 存储空间名称
      */
     String name;
-    /**
-     * 完整路径
-     */
-    String fullPath;
     /**
      * 存储空间描述
      */
@@ -49,10 +44,6 @@ public class StorageSpace extends BaseEntity {
      */
     String spaceType;
     /**
-     * 已用容量
-     */
-    Integer usedCapacity;
-    /**
      * 颜色
      */
     String color;
@@ -61,17 +52,8 @@ public class StorageSpace extends BaseEntity {
      */
     String icon;
     /**
-     * 排序号
-     */
-    Integer sortOrder;
-    /**
-     * 二维码URL
-     */
-    String qrCodeUrl;
-    /**
      * 图片列表
      */
-    @TableField(typeHandler = JacksonTypeHandler.class)
     List<String> images;
     /**
      * 状态

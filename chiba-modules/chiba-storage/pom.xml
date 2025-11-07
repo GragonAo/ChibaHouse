@@ -55,6 +55,11 @@
             <artifactId>chiba-common-security</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-api-storage</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

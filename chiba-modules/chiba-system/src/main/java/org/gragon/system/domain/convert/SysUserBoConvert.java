@@ -15,6 +15,7 @@ public interface SysUserBoConvert extends BaseMapper<RemoteUserBo, SysUserBo> {
 
     /**
      * RemoteUserBoToSysUserBo
+     *
      * @param remoteUserBo 待转换对象
      * @return 转换后对象
      */

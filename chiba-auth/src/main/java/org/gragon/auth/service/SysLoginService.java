@@ -3,8 +3,6 @@ package org.gragon.auth.service;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.lock.annotation.Lock4j;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +17,6 @@ import org.gragon.common.core.constant.Constants;
 import org.gragon.common.core.constant.GlobalConstants;
 import org.gragon.common.core.enums.LoginType;
 import org.gragon.common.core.enums.UserType;
-import org.gragon.common.core.exception.ServiceException;
 import org.gragon.common.core.exception.user.CaptchaException;
 import org.gragon.common.core.exception.user.CaptchaExpireException;
 import org.gragon.common.core.exception.user.UserException;
@@ -28,15 +25,12 @@ import org.gragon.common.core.utils.StringUtils;
 import org.gragon.common.redis.utils.RedisUtils;
 import org.gragon.common.satoken.utils.LoginHelper;
 import org.gragon.system.api.RemoteUserService;
-import org.gragon.system.api.domain.bo.RemoteSocialBo;
 import org.gragon.system.api.domain.bo.RemoteUserBo;
-import org.gragon.system.api.domain.vo.RemoteSocialVo;
 import org.gragon.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -49,13 +43,12 @@ import java.util.function.Supplier;
 @Slf4j
 public class SysLoginService {
 
-    @DubboReference
-    private RemoteUserService remoteUserService;
-
-    @Autowired
-    private UserPasswordProperties userPasswordProperties;
     @Autowired
     private final CaptchaProperties captchaProperties;
+    @DubboReference
+    private RemoteUserService remoteUserService;
+    @Autowired
+    private UserPasswordProperties userPasswordProperties;
 
     /**
      * 绑定第三方用户
@@ -104,7 +97,7 @@ public class SysLoginService {
             if (ObjectUtil.isNull(loginUser)) {
                 return;
             }
-            recordLogininfor( loginUser.getUsername(), Constants.LOGOUT, MessageUtils.message("user.logout.success"));
+            recordLogininfor(loginUser.getUsername(), Constants.LOGOUT, MessageUtils.message("user.logout.success"));
         } catch (NotLoginException ignored) {
         } finally {
             try {
@@ -159,7 +152,7 @@ public class SysLoginService {
             throw new CaptchaExpireException();
         }
         if (!code.equalsIgnoreCase(captcha)) {
-            recordLogininfor( username, Constants.REGISTER, MessageUtils.message("user.jcaptcha.error"));
+            recordLogininfor(username, Constants.REGISTER, MessageUtils.message("user.jcaptcha.error"));
             throw new CaptchaException();
         }
     }
@@ -205,11 +198,11 @@ public class SysLoginService {
             RedisUtils.setCacheObject(errorKey, errorNumber, Duration.ofMinutes(lockTime));
             // 达到规定错误次数 则锁定登录
             if (errorNumber >= maxRetryCount) {
-                recordLogininfor( username, loginFail, MessageUtils.message(loginType.getRetryLimitExceed(), maxRetryCount, lockTime));
+                recordLogininfor(username, loginFail, MessageUtils.message(loginType.getRetryLimitExceed(), maxRetryCount, lockTime));
                 throw new UserException(loginType.getRetryLimitExceed(), maxRetryCount, lockTime);
             } else {
                 // 未达到规定错误次数
-                recordLogininfor( username, loginFail, MessageUtils.message(loginType.getRetryLimitCount(), errorNumber));
+                recordLogininfor(username, loginFail, MessageUtils.message(loginType.getRetryLimitCount(), errorNumber));
                 throw new UserException(loginType.getRetryLimitCount(), errorNumber);
             }
         }

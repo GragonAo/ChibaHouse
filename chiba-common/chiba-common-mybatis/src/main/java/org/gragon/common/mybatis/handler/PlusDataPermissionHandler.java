@@ -154,13 +154,13 @@ public class PlusDataPermissionHandler {
                 }
                 // 不包含 key 变量 则不处理
                 if (!StringUtils.containsAny(type.getSqlTemplate(),
-                    Arrays.stream(dataColumn.key()).map(key -> "#" + key).toArray(String[]::new)
+                        Arrays.stream(dataColumn.key()).map(key -> "#" + key).toArray(String[]::new)
                 )) {
                     continue;
                 }
                 // 包含权限标识符 这直接跳过
                 if (StringUtils.isNotBlank(dataColumn.permission()) &&
-                    CollUtil.contains(user.getMenuPermission(), dataColumn.permission())
+                        CollUtil.contains(user.getMenuPermission(), dataColumn.permission())
                 ) {
                     isSuccess = true;
                     continue;

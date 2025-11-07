@@ -4,7 +4,6 @@ import org.gragon.system.api.domain.vo.RemoteClientVo;
 
 /**
  * 客户端服务
- *
  */
 public interface RemoteClientService {
 
