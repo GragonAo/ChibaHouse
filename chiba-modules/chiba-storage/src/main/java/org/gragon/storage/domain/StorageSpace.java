@@ -1,6 +1,8 @@
 package org.gragon.storage.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
 
@@ -8,7 +10,7 @@ import java.io.Serial;
 import java.util.List;
 
 @Data
-@TableName("storage_spaces")
+@TableName(value = "storage_spaces", autoResultMap = true)
 public class StorageSpace extends BaseEntity {
 
     @Serial
@@ -37,7 +39,8 @@ public class StorageSpace extends BaseEntity {
     /**
      * 完整路径
      */
-    String fullPath;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    List<Long> fullPaths;
     /**
      * 存储空间描述
      */
@@ -69,11 +72,8 @@ public class StorageSpace extends BaseEntity {
     /**
      * 图片列表
      */
+    @TableField(typeHandler = JacksonTypeHandler.class)
     List<String> images;
-    /**
-     * 自定义字段
-     */
-    Object customFields;
     /**
      * 是否公开
      */

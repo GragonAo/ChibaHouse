@@ -7,9 +7,11 @@ import org.gragon.common.mybatis.core.page.TableDataInfo;
 import org.gragon.common.satoken.utils.LoginHelper;
 import org.gragon.common.web.core.BaseController;
 import org.gragon.storage.domain.bo.ItemBo;
+import org.gragon.storage.domain.enums.UserSpacePermissionType;
 import org.gragon.storage.domain.vo.ItemInfoVo;
 import org.gragon.storage.domain.vo.ItemVo;
 import org.gragon.storage.service.ItemService;
+import org.gragon.storage.service.UserSpacePermissionService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ import java.util.List;
 @RequestMapping("/item")
 public class ItemController extends BaseController {
     private final ItemService itemService;
+    private final UserSpacePermissionService permissionService;
 
     /**
      * 查询Item列表
@@ -38,7 +41,7 @@ public class ItemController extends BaseController {
             // TODO 获取Item所属空间信息
             itemInfoVoList.add(new ItemInfoVo(item, null));
         }
-        return TableDataInfo.build(itemInfoVoList,itemPageList.getTotal());
+        return TableDataInfo.build(itemInfoVoList, itemPageList.getTotal());
     }
 
     /**
@@ -78,7 +81,11 @@ public class ItemController extends BaseController {
      */
     @DeleteMapping("/{itemId}")
     public R<Void> deleteItem(@PathVariable(value = "itemId", required = true) Long id) {
-        // TODO 权限校验
+        //权限校验
+        if (permissionService.checkPermission(id, LoginHelper.getUserId(),
+                List.of(UserSpacePermissionType.ADMIN))) {
+            return R.fail("没有权限删除该物品");
+        }
         return toAjax(itemService.deleteItem(id));
     }
 
@@ -91,8 +98,10 @@ public class ItemController extends BaseController {
     @PutMapping()
     public R<Void> updateItem(@Validated @RequestBody ItemBo itemBo) {
         Long userId = LoginHelper.getUserId();
-        // TODO 权限校验
-        itemBo.setUpdateBy(userId);
+        if (permissionService.checkPermission(itemBo.getSpaceId(), userId,
+                List.of(UserSpacePermissionType.ADMIN))) {
+            return R.fail("没有权限更新该物品");
+        }
         return toAjax(itemService.updateItem(itemBo));
     }
 }
