@@ -16,9 +16,15 @@ import org.springframework.web.bind.annotation.*;
 public class StorageSpaceController extends BaseController {
     private final StorageSpaceService storageSpaceService;
 
+    /**
+     * 获取储物空间详细信息
+     *
+     * @param spaceId 储物空间ID
+     * @return 储物空间详细信息
+     */
     @GetMapping("/{spaceId}")
-    public R<StorageSpaceVo> getSpace(@RequestParam("spaceId") final String spaceId) {
-        StorageSpaceVo spaceVo = storageSpaceService.getStorageSpaceById(Long.valueOf(spaceId));
+    public R<StorageSpaceVo> getSpace(@PathVariable("spaceId") Long spaceId) {
+        StorageSpaceVo spaceVo = storageSpaceService.getStorageSpaceById(spaceId);
         return R.ok(spaceVo);
     }
 
@@ -35,6 +41,12 @@ public class StorageSpaceController extends BaseController {
         return toAjax(storageSpaceService.insertSpace(spaceBo));
     }
 
+    /**
+     * 更新储物空间
+     *
+     * @param spaceBo 储物空间业务对象
+     * @return 操作结果
+     */
     @PutMapping
     public R<Void> updateSpace(@Validated @RequestBody StorageSpaceBo spaceBo) {
         Long userId = LoginHelper.getLoginUser().getUserId();
@@ -42,9 +54,14 @@ public class StorageSpaceController extends BaseController {
         return toAjax(storageSpaceService.updateSpace(spaceBo));
     }
 
+    /**
+     * 删除储物空间
+     *
+     * @param spaceId 储物空间ID
+     * @return 操作结果
+     */
     @DeleteMapping({"/{spaceId}"})
     public R<Void> deleteSpace(@PathVariable("spaceId") Long spaceId) {
         return toAjax(storageSpaceService.deleteSpace(spaceId));
     }
-
 }

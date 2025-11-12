@@ -1,25 +1,21 @@
 package org.gragon.storage.service.impl;
 
+import com.baomidou.lock.annotation.Lock4j;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.gragon.common.core.exception.ServiceException;
 import org.gragon.common.core.utils.MapstructUtils;
-import org.gragon.common.satoken.utils.LoginHelper;
 import org.gragon.storage.domain.StorageSpace;
 import org.gragon.storage.domain.bo.StorageSpaceBo;
-import org.gragon.storage.domain.bo.UserSpacePermissionBo;
-import org.gragon.storage.domain.enums.UserSpacePermissionType;
 import org.gragon.storage.domain.vo.StorageSpaceVo;
 import org.gragon.storage.mapper.StorageSpaceMapper;
 import org.gragon.storage.service.StorageSpaceService;
-import org.gragon.storage.service.UserSpacePermissionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -28,8 +24,6 @@ public class StorageSpaceServiceImpl implements StorageSpaceService {
 
     private final StorageSpaceMapper baseMapper;
 
-    private final UserSpacePermissionService permissionService;
-
     /**
      * 通过储物空间ID获取储物空间信息
      *
@@ -37,12 +31,23 @@ public class StorageSpaceServiceImpl implements StorageSpaceService {
      * @return 储物空间信息
      */
     public StorageSpaceVo getStorageSpaceById(Long id) {
-        if (!permissionService.checkPermission(id, LoginHelper.getUserId(),
-                List.of(UserSpacePermissionType.REDE_ONLY, UserSpacePermissionType.READ_WRITE,
-                        UserSpacePermissionType.ADMIN))) {
-            throw new ServiceException("没有权限访问该储物空间");
+        StorageSpaceVo spaceVo = baseMapper.selectVoById(id);
+        if (spaceVo != null) {
+            spaceVo.setFullPathNames(this.getSpaceFullPathNameList(spaceVo.getFullPaths()));
         }
-        return baseMapper.selectVoById(id);
+        return spaceVo;
+    }
+    
+
+    private List<String> getSpaceFullPathNameList(List<Long> spaceIdList) {
+        if (spaceIdList == null || spaceIdList.isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<StorageSpace> spaceList = baseMapper.selectList(new LambdaQueryWrapper<StorageSpace>()
+                .in(StorageSpace::getId, spaceIdList)
+                .orderByAsc(StorageSpace::getSortOrder)
+        );
+        return spaceList.stream().map(StorageSpace::getName).toList();
     }
 
     /**
@@ -56,18 +61,47 @@ public class StorageSpaceServiceImpl implements StorageSpaceService {
         StorageSpace space = MapstructUtils.convert(spaceBo, StorageSpace.class);
         if (spaceBo.getParentId() != null) {
             StorageSpace parentSpace = baseMapper.selectById(spaceBo.getParentId());
-            if (parentSpace == null) {
-                throw new ServiceException("父储物空间不存在");
-            }
-            List<Long> fullPaths = Optional.ofNullable(parentSpace.getFullPaths())
-                    .map(ArrayList::new)
-                    .orElseGet(ArrayList::new);
-            fullPaths.add(parentSpace.getId());
-            space.setFullPaths(fullPaths);
+            List<Long> parentIdList = new ArrayList<>(parentSpace.getFullPaths());
+            parentIdList.add(spaceBo.getParentId());
+            space.setFullPaths(parentIdList);
+            space.setSortOrder(parentSpace.getSortOrder() + 1);
         }
         int rows = baseMapper.insert(space);
-        permissionService.assignDefaultPermissions(new UserSpacePermissionBo());
+        this.updateSpaceUsedCapacity(space.getParentId(), rows);
         return rows;
+    }
+
+    @Lock4j(keys = "#spaceId")
+    public void updateSpaceUsedCapacity(Long spaceId, Integer capacityChange) {
+        StorageSpace space = baseMapper.selectById(spaceId);
+        if (space == null || capacityChange == 0) {
+            return;
+        }
+
+        // 计算新的容量
+        Integer newUsedCapacity = space.getUsedCapacity() + capacityChange;
+
+        // 校验容量不能为负数
+        if (newUsedCapacity < 0) {
+            throw new ServiceException(
+                    String.format("容量不足，当前容量：%d，变更量：%d",
+                            space.getUsedCapacity(), capacityChange)
+            );
+        }
+
+        // 更新容量
+        StorageSpace updateEntity = new StorageSpace();
+        updateEntity.setId(spaceId);
+        updateEntity.setUsedCapacity(newUsedCapacity);
+
+        int result = baseMapper.updateById(updateEntity);
+        if (result == 0) {
+            throw new ServiceException("更新存储空间容量失败");
+        }
+
+        // 可以添加日志记录
+        log.info("存储空间容量更新成功，空间ID：{}，原容量：{}，变更量：{}，新容量：{}",
+                spaceId, space.getUsedCapacity(), capacityChange, newUsedCapacity);
     }
 
 
@@ -78,21 +112,11 @@ public class StorageSpaceServiceImpl implements StorageSpaceService {
      * @return 更新结果
      */
     public int updateSpace(StorageSpaceBo spaceBo) {
-        // 检查用户是否有权限修改该储物空间
-        if (!permissionService.checkPermission(spaceBo.getId(), LoginHelper.getUserId(),
-                List.of(UserSpacePermissionType.ADMIN, UserSpacePermissionType.READ_WRITE))) {
-            throw new ServiceException("没有权限修改该储物空间");
-        }
         StorageSpace space = MapstructUtils.convert(spaceBo, StorageSpace.class);
         return baseMapper.updateById(space);
     }
 
     public int deleteSpace(Long spaceId) {
-        // 检查用户是否有权限删除该储物空间
-        if (!permissionService.checkPermission(spaceId, LoginHelper.getUserId(),
-                List.of(UserSpacePermissionType.ADMIN))) {
-            throw new ServiceException("没有权限删除该储物空间");
-        }
         return baseMapper.deleteById(spaceId);
     }
 

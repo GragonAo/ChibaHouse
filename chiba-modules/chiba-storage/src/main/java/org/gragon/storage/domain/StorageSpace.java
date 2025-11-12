@@ -29,10 +29,6 @@ public class StorageSpace extends BaseEntity {
      */
     Long ownerId;
     /**
-     * 存储空间编码
-     */
-    String spaceCode;
-    /**
      * 存储空间名称
      */
     String name;
@@ -45,10 +41,6 @@ public class StorageSpace extends BaseEntity {
      * 存储空间描述
      */
     String description;
-    /**
-     * 存储空间类型
-     */
-    String spaceType;
     /**
      * 已用容量
      */
@@ -66,10 +58,6 @@ public class StorageSpace extends BaseEntity {
      */
     Integer sortOrder;
     /**
-     * 二维码URL
-     */
-    String qrCodeUrl;
-    /**
      * 图片列表
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
@@ -78,8 +66,4 @@ public class StorageSpace extends BaseEntity {
      * 是否公开
      */
     String isPublic;
-    /**
-     * 状态
-     */
-    String status;
 }

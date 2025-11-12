@@ -37,10 +37,6 @@ public class StorageSpaceBo extends BaseEntity {
      */
     String description;
     /**
-     * 存储空间类型
-     */
-    String spaceType;
-    /**
      * 颜色
      */
     String color;

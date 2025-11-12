@@ -7,11 +7,11 @@ import org.gragon.common.mybatis.core.page.TableDataInfo;
 import org.gragon.common.satoken.utils.LoginHelper;
 import org.gragon.common.web.core.BaseController;
 import org.gragon.storage.domain.bo.ItemBo;
-import org.gragon.storage.domain.enums.UserSpacePermissionType;
 import org.gragon.storage.domain.vo.ItemInfoVo;
 import org.gragon.storage.domain.vo.ItemVo;
+import org.gragon.storage.domain.vo.StorageSpaceVo;
 import org.gragon.storage.service.ItemService;
-import org.gragon.storage.service.UserSpacePermissionService;
+import org.gragon.storage.service.StorageSpaceService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("/item")
 public class ItemController extends BaseController {
     private final ItemService itemService;
-    private final UserSpacePermissionService permissionService;
+    private final StorageSpaceService storageSpaceService;
 
     /**
      * 查询Item列表
@@ -53,8 +53,11 @@ public class ItemController extends BaseController {
     @GetMapping("/{itemId}")
     public R<ItemInfoVo> getItem(@PathVariable(value = "itemId", required = true) Long id) {
         ItemVo itemVo = itemService.getItemById(id);
-        // TODO 获取Item所属空间信息
-        ItemInfoVo itemInfoVo = new ItemInfoVo(itemVo, null);
+        if (itemVo == null) {
+            return R.fail("未找到对应物品信息");
+        }
+        StorageSpaceVo spaceVo = storageSpaceService.getStorageSpaceById(itemVo.getSpaceId());
+        ItemInfoVo itemInfoVo = new ItemInfoVo(itemVo, spaceVo);
         return R.ok(itemInfoVo);
     }
 
@@ -81,11 +84,6 @@ public class ItemController extends BaseController {
      */
     @DeleteMapping("/{itemId}")
     public R<Void> deleteItem(@PathVariable(value = "itemId", required = true) Long id) {
-        //权限校验
-        if (permissionService.checkPermission(id, LoginHelper.getUserId(),
-                List.of(UserSpacePermissionType.ADMIN))) {
-            return R.fail("没有权限删除该物品");
-        }
         return toAjax(itemService.deleteItem(id));
     }
 
@@ -98,10 +96,6 @@ public class ItemController extends BaseController {
     @PutMapping()
     public R<Void> updateItem(@Validated @RequestBody ItemBo itemBo) {
         Long userId = LoginHelper.getUserId();
-        if (permissionService.checkPermission(itemBo.getSpaceId(), userId,
-                List.of(UserSpacePermissionType.ADMIN))) {
-            return R.fail("没有权限更新该物品");
-        }
         return toAjax(itemService.updateItem(itemBo));
     }
 }
