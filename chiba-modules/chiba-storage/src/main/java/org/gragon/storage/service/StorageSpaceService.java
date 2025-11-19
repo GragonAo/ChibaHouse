@@ -13,4 +13,5 @@ public interface StorageSpaceService {
     int deleteSpace(Long spaceId);
 
     boolean isSpaceExist(Long spaceId);
+    
 }

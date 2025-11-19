@@ -29,17 +29,18 @@ public class ItemController extends BaseController {
     /**
      * 查询Item列表
      *
-     * @param bo        Item查询对象
+     * @param itemBo    Item查询对象
      * @param pageQuery 分页查询对象
      * @return Item分页数据
      */
+
     @GetMapping("/list")
-    public TableDataInfo<ItemInfoVo> list(ItemBo bo, PageQuery pageQuery) {
-        TableDataInfo<ItemVo> itemPageList = itemService.getItemPageList(bo, pageQuery);
+    public TableDataInfo<ItemInfoVo> list(ItemBo itemBo, PageQuery pageQuery) {
+        TableDataInfo<ItemVo> itemPageList = itemService.getItemPageList(itemBo, pageQuery);
         List<ItemInfoVo> itemInfoVoList = new ArrayList<>();
         for (ItemVo item : itemPageList.getRows()) {
-            // TODO 获取Item所属空间信息
-            itemInfoVoList.add(new ItemInfoVo(item, null));
+            StorageSpaceVo space = storageSpaceService.getStorageSpaceById(item.getSpaceId());
+            itemInfoVoList.add(new ItemInfoVo(item, space));
         }
         return TableDataInfo.build(itemInfoVoList, itemPageList.getTotal());
     }
@@ -69,10 +70,6 @@ public class ItemController extends BaseController {
      */
     @PostMapping()
     public R<Void> addItem(@Validated @RequestBody ItemBo itemBo) {
-        Long userId = LoginHelper.getUserId();
-        itemBo.setCreateBy(userId);
-        itemBo.setUpdateBy(userId);
-        itemBo.setOwnerId(userId);
         return toAjax(itemService.insertItem(itemBo));
     }
 

@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
-import org.gragon.storage.domain.UserSpacePermission;
+import org.gragon.storage.domain.SpacePermission;
 import org.gragon.storage.domain.enums.UserSpacePermissionType;
 
 import java.io.Serial;
@@ -16,7 +16,7 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@AutoMapper(target = UserSpacePermission.class, reverseConvertGenerate = false)
+@AutoMapper(target = SpacePermission.class, reverseConvertGenerate = false)
 public class UserSpacePermissionBo extends BaseEntity {
 
     @Serial

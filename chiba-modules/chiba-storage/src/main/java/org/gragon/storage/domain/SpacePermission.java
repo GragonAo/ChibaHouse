@@ -3,13 +3,12 @@ package org.gragon.storage.domain;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
-import org.gragon.storage.domain.enums.UserSpacePermissionType;
 
 import java.io.Serial;
 
 @Data
-@TableName("user_space_permissions")
-public class UserSpacePermission extends BaseEntity {
+@TableName("space_permissions")
+public class SpacePermission extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -26,8 +25,4 @@ public class UserSpacePermission extends BaseEntity {
      * 空间ID
      */
     Long spaceId;
-    /**
-     * 权限级别
-     */
-    UserSpacePermissionType permissionLevel;
 }

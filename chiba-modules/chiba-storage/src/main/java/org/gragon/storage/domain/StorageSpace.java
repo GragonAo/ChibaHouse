@@ -65,5 +65,5 @@ public class StorageSpace extends BaseEntity {
     /**
      * 是否公开
      */
-    String isPublic;
+    Boolean isPublic;
 }

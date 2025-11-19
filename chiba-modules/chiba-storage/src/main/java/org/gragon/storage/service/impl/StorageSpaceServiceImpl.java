@@ -10,6 +10,7 @@ import org.gragon.storage.domain.StorageSpace;
 import org.gragon.storage.domain.bo.StorageSpaceBo;
 import org.gragon.storage.domain.vo.StorageSpaceVo;
 import org.gragon.storage.mapper.StorageSpaceMapper;
+import org.gragon.storage.service.SpacePermissionService;
 import org.gragon.storage.service.StorageSpaceService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ import java.util.List;
 public class StorageSpaceServiceImpl implements StorageSpaceService {
 
     private final StorageSpaceMapper baseMapper;
+    private final SpacePermissionService spacePermissionService;
 
     /**
      * 通过储物空间ID获取储物空间信息
@@ -37,7 +39,7 @@ public class StorageSpaceServiceImpl implements StorageSpaceService {
         }
         return spaceVo;
     }
-    
+
 
     private List<String> getSpaceFullPathNameList(List<Long> spaceIdList) {
         if (spaceIdList == null || spaceIdList.isEmpty()) {
@@ -104,7 +106,6 @@ public class StorageSpaceServiceImpl implements StorageSpaceService {
                 spaceId, space.getUsedCapacity(), capacityChange, newUsedCapacity);
     }
 
-
     /**
      * 更新储物空间信息
      *
@@ -119,6 +120,7 @@ public class StorageSpaceServiceImpl implements StorageSpaceService {
     public int deleteSpace(Long spaceId) {
         return baseMapper.deleteById(spaceId);
     }
+    
 
     @Override
     public boolean isSpaceExist(Long spaceId) {
