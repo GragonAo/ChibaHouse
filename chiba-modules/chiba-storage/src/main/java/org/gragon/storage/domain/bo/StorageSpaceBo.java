@@ -1,6 +1,5 @@
 package org.gragon.storage.domain.bo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,14 +13,12 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @AutoMapper(target = StorageSpace.class, reverseConvertGenerate = false)
 public class StorageSpaceBo extends BaseEntity {
-
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
      * 存储空间ID
      */
-    @TableId
     Long id;
     /**
      * 父存储空间ID
@@ -40,10 +37,6 @@ public class StorageSpaceBo extends BaseEntity {
      */
     String description;
     /**
-     * 存储空间类型
-     */
-    String spaceType;
-    /**
      * 颜色
      */
     String color;
@@ -55,8 +48,4 @@ public class StorageSpaceBo extends BaseEntity {
      * 图片列表
      */
     List<String> images;
-    /**
-     * 状态
-     */
-    String status;
 }

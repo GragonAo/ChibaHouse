@@ -39,10 +39,6 @@ public class Item extends BaseEntity {
      */
     Long categoryId;
     /**
-     * 物品编码
-     */
-    String itemCode;
-    /**
      * 物品名称
      */
     String name;
@@ -78,14 +74,6 @@ public class Item extends BaseEntity {
      * 购买日期
      */
     LocalDateTime purchaseDate;
-    /**
-     * 条形码
-     */
-    String barcode;
-    /**
-     * 二维码链接
-     */
-    String qrCodeUrl;
     /**
      * 序列号
      */

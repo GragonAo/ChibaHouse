@@ -1,8 +1,7 @@
 package org.gragon.storage.domain.enums;
 
 public enum UserSpacePermissionType {
-    NONE,
-    READ_ONLY,
+    REDE_ONLY,
     READ_WRITE,
     ADMIN
 }

@@ -9,7 +9,9 @@ import org.gragon.common.web.core.BaseController;
 import org.gragon.storage.domain.bo.ItemBo;
 import org.gragon.storage.domain.vo.ItemInfoVo;
 import org.gragon.storage.domain.vo.ItemVo;
+import org.gragon.storage.domain.vo.StorageSpaceVo;
 import org.gragon.storage.service.ItemService;
+import org.gragon.storage.service.StorageSpaceService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,23 +24,25 @@ import java.util.List;
 @RequestMapping("/item")
 public class ItemController extends BaseController {
     private final ItemService itemService;
+    private final StorageSpaceService storageSpaceService;
 
     /**
      * 查询Item列表
      *
-     * @param bo        Item查询对象
+     * @param itemBo    Item查询对象
      * @param pageQuery 分页查询对象
      * @return Item分页数据
      */
+
     @GetMapping("/list")
-    public TableDataInfo<ItemInfoVo> list(ItemBo bo, PageQuery pageQuery) {
-        TableDataInfo<ItemVo> itemPageList = itemService.getItemPageList(bo, pageQuery);
+    public TableDataInfo<ItemInfoVo> list(ItemBo itemBo, PageQuery pageQuery) {
+        TableDataInfo<ItemVo> itemPageList = itemService.getItemPageList(itemBo, pageQuery);
         List<ItemInfoVo> itemInfoVoList = new ArrayList<>();
         for (ItemVo item : itemPageList.getRows()) {
-            // TODO 获取Item所属空间信息
-            itemInfoVoList.add(new ItemInfoVo(item, null));
+            StorageSpaceVo space = storageSpaceService.getStorageSpaceById(item.getSpaceId());
+            itemInfoVoList.add(new ItemInfoVo(item, space));
         }
-        return TableDataInfo.build(itemInfoVoList,itemPageList.getTotal());
+        return TableDataInfo.build(itemInfoVoList, itemPageList.getTotal());
     }
 
     /**
@@ -50,8 +54,11 @@ public class ItemController extends BaseController {
     @GetMapping("/{itemId}")
     public R<ItemInfoVo> getItem(@PathVariable(value = "itemId", required = true) Long id) {
         ItemVo itemVo = itemService.getItemById(id);
-        // TODO 获取Item所属空间信息
-        ItemInfoVo itemInfoVo = new ItemInfoVo(itemVo, null);
+        if (itemVo == null) {
+            return R.fail("未找到对应物品信息");
+        }
+        StorageSpaceVo spaceVo = storageSpaceService.getStorageSpaceById(itemVo.getSpaceId());
+        ItemInfoVo itemInfoVo = new ItemInfoVo(itemVo, spaceVo);
         return R.ok(itemInfoVo);
     }
 
@@ -63,10 +70,6 @@ public class ItemController extends BaseController {
      */
     @PostMapping()
     public R<Void> addItem(@Validated @RequestBody ItemBo itemBo) {
-        Long userId = LoginHelper.getUserId();
-        itemBo.setCreateBy(userId);
-        itemBo.setUpdateBy(userId);
-        itemBo.setOwnerId(userId);
         return toAjax(itemService.insertItem(itemBo));
     }
 
@@ -78,7 +81,6 @@ public class ItemController extends BaseController {
      */
     @DeleteMapping("/{itemId}")
     public R<Void> deleteItem(@PathVariable(value = "itemId", required = true) Long id) {
-        // TODO 权限校验
         return toAjax(itemService.deleteItem(id));
     }
 
@@ -91,8 +93,6 @@ public class ItemController extends BaseController {
     @PutMapping()
     public R<Void> updateItem(@Validated @RequestBody ItemBo itemBo) {
         Long userId = LoginHelper.getUserId();
-        // TODO 权限校验
-        itemBo.setUpdateBy(userId);
         return toAjax(itemService.updateItem(itemBo));
     }
 }

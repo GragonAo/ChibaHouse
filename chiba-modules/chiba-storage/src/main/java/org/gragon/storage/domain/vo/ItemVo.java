@@ -37,10 +37,6 @@ public class ItemVo extends BaseEntity {
      */
     Long categoryId;
     /**
-     * 物品编码
-     */
-    String itemCode;
-    /**
      * 物品名称
      */
     String name;
@@ -78,14 +74,6 @@ public class ItemVo extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
     LocalDateTime purchaseDate;
     /**
-     * 条形码
-     */
-    String barcode;
-    /**
-     * 二维码链接
-     */
-    String qrCodeUrl;
-    /**
      * 序列号
      */
     Long serialNumber;
@@ -101,10 +89,6 @@ public class ItemVo extends BaseEntity {
      * 文档列表
      */
     List<String> documents;
-    /**
-     * 自定义字段
-     */
-    Object customFields;
     /**
      * 重要等级
      */
