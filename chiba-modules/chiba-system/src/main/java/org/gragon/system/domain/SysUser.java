@@ -1,24 +1,24 @@
 package org.gragon.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.gragon.common.core.enums.UserStatus;
-import org.gragon.common.mybatis.core.domain.BaseEntity;
 import org.gragon.common.core.enums.UserRoleType;
 import org.gragon.common.core.enums.UserSexType;
+import org.gragon.common.core.enums.UserStatus;
+import org.gragon.common.mybatis.core.domain.BaseEntity;
 
 import java.io.Serial;
 
 /**
  * 用户对象 user
- *
  */
 
 @Data
 @NoArgsConstructor
-@TableName("sys_users")
+@TableName("sys_user")
 public class SysUser extends BaseEntity {
 
     @Serial
@@ -27,7 +27,7 @@ public class SysUser extends BaseEntity {
     /**
      * 用户ID
      */
-    @TableId(value = "id")
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long userId;
 
 

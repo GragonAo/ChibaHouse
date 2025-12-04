@@ -22,6 +22,7 @@ import org.gragon.common.core.utils.ValidatorUtils;
 import org.gragon.common.json.utils.JsonUtils;
 import org.gragon.common.redis.utils.RedisUtils;
 import org.gragon.common.satoken.utils.LoginHelper;
+import org.gragon.common.tenant.helper.TenantHelper;
 import org.gragon.system.api.RemoteUserService;
 import org.gragon.system.api.domain.vo.RemoteClientVo;
 import org.gragon.system.api.model.LoginUser;
@@ -58,8 +59,8 @@ public class PasswordAuthStrategy implements AuthStrategy {
             validateCaptcha(null, username, code, uuid);
         }
         LoginUser loginUser = remoteUserService.getUserInfo(username);
-        loginService.checkLogin(LoginType.PASSWORD, username, () -> !BCrypt.checkpw(password, loginUser.getPassword()));
-
+        loginService.checkLogin(LoginType.PASSWORD, loginUser.getTenantId(), username, () -> !BCrypt.checkpw(password, loginUser.getPassword()));
+        TenantHelper.setDynamic(loginUser.getTenantId().toString(), true);
         loginUser.setClientKey(client.getClientKey());
         loginUser.setDeviceType(client.getDeviceType());
         SaLoginModel model = new SaLoginModel();
@@ -86,16 +87,16 @@ public class PasswordAuthStrategy implements AuthStrategy {
      * @param code     验证码
      * @param uuid     唯一标识
      */
-    private void validateCaptcha(String tenantId, String username, String code, String uuid) {
+    private void validateCaptcha(Long tenantId, String username, String code, String uuid) {
         String verifyKey = GlobalConstants.CAPTCHA_CODE_KEY + StringUtils.blankToDefault(uuid, "");
         String captcha = RedisUtils.getCacheObject(verifyKey);
         RedisUtils.deleteObject(verifyKey);
         if (captcha == null) {
-            loginService.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire"));
+            loginService.recordLogininfor(tenantId, username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire"));
             throw new CaptchaExpireException();
         }
         if (!code.equalsIgnoreCase(captcha)) {
-            loginService.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error"));
+            loginService.recordLogininfor(tenantId, username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error"));
             throw new CaptchaException();
         }
     }

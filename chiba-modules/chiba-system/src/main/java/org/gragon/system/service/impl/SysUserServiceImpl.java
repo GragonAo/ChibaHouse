@@ -16,9 +16,11 @@ import org.gragon.common.core.utils.StringUtils;
 import org.gragon.common.mybatis.core.page.PageQuery;
 import org.gragon.common.mybatis.core.page.TableDataInfo;
 import org.gragon.system.domain.SysUser;
+import org.gragon.system.domain.bo.SysTenantBo;
 import org.gragon.system.domain.bo.SysUserBo;
 import org.gragon.system.domain.vo.SysUserVo;
 import org.gragon.system.mapper.SysUserMapper;
+import org.gragon.system.service.SysTenantService;
 import org.gragon.system.service.SysUserService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -37,6 +39,8 @@ import java.util.Map;
 public class SysUserServiceImpl implements SysUserService {
 
     private final SysUserMapper baseMapper;
+
+    private final SysTenantService sysTenantService;
 
     @Override
     public TableDataInfo<SysUserVo> selectPageUserList(SysUserBo user, PageQuery pageQuery) {
@@ -176,11 +180,18 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 结果
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean registerUser(SysUserBo user) {
         user.setCreateBy(0L);
         user.setUpdateBy(0L);
         SysUser sysUser = MapstructUtils.convert(user, SysUser.class);
-        return baseMapper.insert(sysUser) > 0;
+        SysTenantBo tenantBo = new SysTenantBo();
+        baseMapper.insert(sysUser);
+        tenantBo.setName(sysUser.getUserName() + "的家");
+        tenantBo.setCreateBy(sysUser.getUserId());
+        tenantBo.setUpdateBy(sysUser.getUserId());
+
+        return sysTenantService.insertTenant(tenantBo);
     }
 
     /**

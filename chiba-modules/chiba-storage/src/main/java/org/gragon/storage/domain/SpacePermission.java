@@ -3,18 +3,15 @@ package org.gragon.storage.domain;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
+import org.gragon.storage.domain.enums.UserSpacePermissionType;
 
-import java.io.Serial;
+import java.time.LocalDateTime;
 
 @Data
-@TableName("space_permissions")
+@TableName("storage_space_permission")
 public class SpacePermission extends BaseEntity {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     /**
-     * 用户空间权限ID
+     * 用户存储空间权限ID
      */
     Long id;
     /**
@@ -22,7 +19,24 @@ public class SpacePermission extends BaseEntity {
      */
     Long userId;
     /**
-     * 空间ID
+     * 存储空间ID
      */
     Long spaceId;
+    /**
+     * 权限级别
+     */
+    UserSpacePermissionType permissionLevel;
+    /**
+     * 过期时间
+     */
+    LocalDateTime expireTime;
+
+    Long tenantId;
+
+    public SpacePermission(Long userid, Long spaceid, UserSpacePermissionType permissionLevel, LocalDateTime expireTime) {
+        this.userId = userid;
+        this.spaceId = spaceid;
+        this.permissionLevel = permissionLevel;
+        this.expireTime = expireTime;
+    }
 }

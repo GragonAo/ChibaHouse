@@ -10,7 +10,7 @@ import java.io.Serial;
 import java.util.List;
 
 @Data
-@TableName(value = "storage_spaces", autoResultMap = true)
+@TableName(value = "storage_space", autoResultMap = true)
 public class StorageSpace extends BaseEntity {
 
     @Serial
@@ -66,4 +66,6 @@ public class StorageSpace extends BaseEntity {
      * 是否公开
      */
     Boolean isPublic;
+
+    Long tenantId;
 }

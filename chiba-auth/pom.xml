@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.gragon</groupId>
@@ -42,20 +42,20 @@
             <artifactId>chiba-common-social</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.gragon</groupId>-->
-<!--            <artifactId>chiba-common-doc</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.gragon</groupId>-->
+        <!--            <artifactId>chiba-common-doc</artifactId>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.gragon</groupId>
             <artifactId>chiba-common-web</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.gragon</groupId>-->
-<!--            <artifactId>chiba-common-ratelimiter</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.gragon</groupId>-->
+        <!--            <artifactId>chiba-common-ratelimiter</artifactId>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.gragon</groupId>
@@ -67,42 +67,42 @@
             <artifactId>chiba-common-dubbo</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.gragon</groupId>-->
-<!--            <artifactId>chiba-common-seata</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.gragon</groupId>-->
-<!--            <artifactId>chiba-common-tenant</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.gragon</groupId>-->
-<!--            <artifactId>chiba-api-resource</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.gragon</groupId>-->
+        <!--            <artifactId>chiba-common-seata</artifactId>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-tenant</artifactId>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.gragon</groupId>-->
+        <!--            <artifactId>chiba-api-resource</artifactId>-->
+        <!--        </dependency>-->
 
         <!-- 自定义负载均衡(多团队开发使用) -->
-<!--        <dependency>-->
-<!--            <groupId>org.gragon</groupId>-->
-<!--            <artifactId>chiba-common-loadbalancer</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.gragon</groupId>-->
+        <!--            <artifactId>chiba-common-loadbalancer</artifactId>-->
+        <!--        </dependency>-->
 
         <!-- ELK 日志收集 -->
-<!--        <dependency>-->
-<!--            <groupId>org.gragon</groupId>-->
-<!--            <artifactId>chiba-common-logstash</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.gragon</groupId>-->
+        <!--            <artifactId>chiba-common-logstash</artifactId>-->
+        <!--        </dependency>-->
 
         <!-- skywalking 日志收集 -->
-<!--        <dependency>-->
-<!--            <groupId>org.gragon</groupId>-->
-<!--            <artifactId>chiba-common-skylog</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.gragon</groupId>-->
+        <!--            <artifactId>chiba-common-skylog</artifactId>-->
+        <!--        </dependency>-->
 
         <!-- prometheus 监控 -->
-<!--        <dependency>-->
-<!--            <groupId>org.gragon</groupId>-->
-<!--            <artifactId>chiba-common-prometheus</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.gragon</groupId>-->
+        <!--            <artifactId>chiba-common-prometheus</artifactId>-->
+        <!--        </dependency>-->
 
     </dependencies>
 

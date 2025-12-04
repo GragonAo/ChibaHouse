@@ -10,7 +10,7 @@ import java.io.Serial;
 
 @Data
 @NoArgsConstructor
-@TableName("sys_tenants")
+@TableName("sys_tenant")
 public class SysTenant extends BaseEntity {
     @Serial
     private static final long serialVersionUID = 1L;

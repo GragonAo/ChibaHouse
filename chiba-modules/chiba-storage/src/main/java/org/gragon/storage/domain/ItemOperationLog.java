@@ -7,7 +7,7 @@ import org.gragon.common.mybatis.core.domain.BaseEntity;
 import java.io.Serial;
 
 @Data
-@TableName("item_operation_logs")
+@TableName("item_operation_log")
 public class ItemOperationLog extends BaseEntity {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -31,4 +31,6 @@ public class ItemOperationLog extends BaseEntity {
      * 新物品数据(JSON格式)
      */
     String newItemData;
+
+    Long tenantId;
 }

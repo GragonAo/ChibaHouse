@@ -1,11 +1,13 @@
 package org.gragon.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.gragon.common.core.utils.MapstructUtils;
 import org.gragon.system.domain.SysTenant;
 import org.gragon.system.domain.bo.SysTenantBo;
+import org.gragon.system.domain.vo.SysTenantVo;
 import org.gragon.system.mapper.SysTenantMapper;
 import org.gragon.system.service.SysTenantService;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysTenantServiceImpl implements SysTenantService {
     private final SysTenantMapper baseMapper;
+
+    @Override
+    public SysTenantVo getTenantByUserId(Long userId) {
+        return baseMapper.selectVoOne(new LambdaQueryWrapper<SysTenant>()
+                .eq(SysTenant::getCreateBy, userId)
+        );
+    }
 
     public boolean insertTenant(SysTenantBo bo) {
         SysTenant add = MapstructUtils.convert(bo, SysTenant.class);

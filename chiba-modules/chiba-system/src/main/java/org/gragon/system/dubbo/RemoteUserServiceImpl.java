@@ -14,7 +14,9 @@ import org.gragon.system.api.model.LoginUser;
 import org.gragon.system.api.model.XcxLoginUser;
 import org.gragon.system.domain.SysUser;
 import org.gragon.system.domain.bo.SysUserBo;
+import org.gragon.system.domain.vo.SysTenantVo;
 import org.gragon.system.domain.vo.SysUserVo;
+import org.gragon.system.service.SysTenantService;
 import org.gragon.system.service.SysUserService;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,7 @@ import java.util.List;
 public class RemoteUserServiceImpl implements RemoteUserService {
 
     private final SysUserService userService;
+    private final SysTenantService tenantService;
 
     /**
      * 通过用户名查询用户信息
@@ -204,11 +207,13 @@ public class RemoteUserServiceImpl implements RemoteUserService {
      */
     private LoginUser buildLoginUser(SysUserVo userVo) {
         LoginUser loginUser = new LoginUser();
+        SysTenantVo tenantVo = tenantService.getTenantByUserId(userVo.getUserId());
         loginUser.setUserId(userVo.getUserId());
         loginUser.setUsername(userVo.getUserName());
         loginUser.setNickname(userVo.getNickName());
         loginUser.setPassword(userVo.getPassword());
         loginUser.setUserType(userVo.getRole().toString());
+        loginUser.setTenantId(tenantVo.getId());
 //        loginUser.setMenuPermission(permissionService.getMenuPermission(userVo.getUserId()));
 //        loginUser.setRolePermission(permissionService.getRolePermission(userVo.getUserId()));
         return loginUser;

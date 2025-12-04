@@ -17,7 +17,7 @@ import java.io.Serial;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("sys_clients")
+@TableName("sys_client")
 public class SysClient extends BaseEntity {
 
     @Serial

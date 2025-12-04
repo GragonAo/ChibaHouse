@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Data
-@TableName(value = "items", autoResultMap = true)
+@TableName(value = "storage_items", autoResultMap = true)
 public class Item extends BaseEntity {
 
     @Serial
@@ -107,4 +107,6 @@ public class Item extends BaseEntity {
 
     @TableLogic
     Integer deleted;
+
+    Long tenantId;
 }
