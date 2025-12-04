@@ -122,6 +122,12 @@
                 <artifactId>chiba-common-idempotent</artifactId>
                 <version>${revision}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-tenant</artifactId>
+                <version>${revision}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

@@ -60,6 +60,11 @@
             <artifactId>chiba-api-storage</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-tenant</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
