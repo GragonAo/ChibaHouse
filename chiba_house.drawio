@@ -1,0 +1,22 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="27.1.1">
+  <diagram name="第 1 页" id="ZpFja2N7-9wg3AjMWeyq">
+    <mxGraphModel dx="695" dy="447" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VRCWxnoPzGEdHP90s5Te-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="VRCWxnoPzGEdHP90s5Te-1" target="VRCWxnoPzGEdHP90s5Te-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VRCWxnoPzGEdHP90s5Te-1" value="注册用户" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VRCWxnoPzGEdHP90s5Te-3" value="1.用户服务(创建用户信息)&lt;div&gt;2.空间服务(创建根空间)&lt;/div&gt;&lt;div&gt;3.家服务(创建家信息)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry y="320" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VRCWxnoPzGEdHP90s5Te-6" value="收纳系统 请求拦截(根据根空间ID，并且查看是否在家权限中)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="220" width="200" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
