@@ -24,10 +24,6 @@ public class StorageSpaceVo extends BaseEntity {
      */
     Long parentId;
     /**
-     * 拥有者ID
-     */
-    Long ownerId;
-    /**
      * 存储空间名称
      */
     String name;
@@ -55,10 +51,6 @@ public class StorageSpaceVo extends BaseEntity {
      * 图片列表
      */
     List<String> images;
-    /**
-     * 是否公开
-     */
-    String isPublic;
 
     List<String> fullPathNames;
 }

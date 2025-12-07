@@ -27,17 +27,9 @@ public class Item extends BaseEntity {
      */
     Long id;
     /**
-     * 拥有者ID
-     */
-    Long ownerId;
-    /**
      * 存放空间ID
      */
     Long spaceId;
-    /**
-     * 分类ID
-     */
-    Long categoryId;
     /**
      * 物品名称
      */
@@ -51,10 +43,6 @@ public class Item extends BaseEntity {
      */
     Float quantity;
     /**
-     * 最小数量
-     */
-    Float minQuantity;
-    /**
      * 单位
      */
     String unit;
@@ -66,10 +54,6 @@ public class Item extends BaseEntity {
      * 购买价格
      */
     Float purchasePrice;
-    /**
-     * 当前价值
-     */
-    Float currentValue;
     /**
      * 购买日期
      */
@@ -106,7 +90,5 @@ public class Item extends BaseEntity {
     LocalDateTime maintenanceDate;
 
     @TableLogic
-    Integer deleted;
-
-    Long tenantId;
+    Boolean deleted;
 }

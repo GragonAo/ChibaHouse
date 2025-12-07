@@ -1,7 +1,6 @@
 package org.gragon.storage.domain;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
@@ -19,15 +18,12 @@ public class StorageSpace extends BaseEntity {
     /**
      * 存储空间ID
      */
+    @TableId(type = IdType.ASSIGN_ID)
     Long id;
     /**
      * 父存储空间ID
      */
     Long parentId;
-    /**
-     * 拥有者ID
-     */
-    Long ownerId;
     /**
      * 存储空间名称
      */
@@ -62,10 +58,7 @@ public class StorageSpace extends BaseEntity {
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
     List<String> images;
-    /**
-     * 是否公开
-     */
-    Boolean isPublic;
 
-    Long tenantId;
+    @TableLogic
+    Boolean deleted;
 }

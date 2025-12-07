@@ -1,6 +1,5 @@
 package org.gragon.storage.domain.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
@@ -25,17 +24,9 @@ public class ItemVo extends BaseEntity {
      */
     Long id;
     /**
-     * 拥有者ID
-     */
-    Long ownerId;
-    /**
      * 存放空间ID
      */
     Long spaceId;
-    /**
-     * 分类ID
-     */
-    Long categoryId;
     /**
      * 物品名称
      */
@@ -49,10 +40,6 @@ public class ItemVo extends BaseEntity {
      */
     Float quantity;
     /**
-     * 最小数量
-     */
-    Float minQuantity;
-    /**
      * 单位
      */
     String unit;
@@ -65,13 +52,8 @@ public class ItemVo extends BaseEntity {
      */
     Float purchasePrice;
     /**
-     * 当前价值
-     */
-    Float currentValue;
-    /**
      * 购买日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
     LocalDateTime purchaseDate;
     /**
      * 序列号
@@ -96,11 +78,9 @@ public class ItemVo extends BaseEntity {
     /**
      * 到期日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
     LocalDateTime expiryDate;
     /**
      * 维护日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
     LocalDateTime maintenanceDate;
 }

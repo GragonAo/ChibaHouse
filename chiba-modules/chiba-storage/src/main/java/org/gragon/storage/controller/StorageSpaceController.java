@@ -2,7 +2,8 @@ package org.gragon.storage.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.gragon.common.core.domain.R;
-import org.gragon.common.satoken.utils.LoginHelper;
+import org.gragon.common.mybatis.core.page.PageQuery;
+import org.gragon.common.mybatis.core.page.TableDataInfo;
 import org.gragon.common.web.core.BaseController;
 import org.gragon.storage.domain.bo.StorageSpaceBo;
 import org.gragon.storage.domain.vo.StorageSpaceVo;
@@ -17,6 +18,19 @@ public class StorageSpaceController extends BaseController {
     private final StorageSpaceService storageSpaceService;
 
     /**
+     * 查询Space列表
+     *
+     * @param spaceBo   Space查询对象
+     * @param pageQuery 分页查询对象
+     * @return Space分页数据
+     */
+
+    @GetMapping("/list")
+    public TableDataInfo<StorageSpaceVo> list(StorageSpaceBo spaceBo, PageQuery pageQuery) {
+        return storageSpaceService.getSpacePageList(spaceBo, pageQuery);
+    }
+
+    /**
      * 获取储物空间详细信息
      *
      * @param spaceId 储物空间ID
@@ -29,6 +43,16 @@ public class StorageSpaceController extends BaseController {
     }
 
     /**
+     * 获取存储根空间ID
+     *
+     * @return 存储空间根ID
+     */
+    @GetMapping("/root")
+    public R<Long> getRootSpace() {
+        return R.ok(storageSpaceService.getRootSpace());
+    }
+
+    /**
      * 添加储物空间
      *
      * @param spaceBo 储物空间业务对象
@@ -36,8 +60,6 @@ public class StorageSpaceController extends BaseController {
      */
     @PostMapping
     public R<Void> addSpace(@Validated @RequestBody StorageSpaceBo spaceBo) {
-        Long userId = LoginHelper.getLoginUser().getUserId();
-        spaceBo.setOwnerId(userId);
         return toAjax(storageSpaceService.insertSpace(spaceBo));
     }
 
@@ -49,8 +71,6 @@ public class StorageSpaceController extends BaseController {
      */
     @PutMapping
     public R<Void> updateSpace(@Validated @RequestBody StorageSpaceBo spaceBo) {
-        Long userId = LoginHelper.getLoginUser().getUserId();
-        spaceBo.setOwnerId(userId);
         return toAjax(storageSpaceService.updateSpace(spaceBo));
     }
 

@@ -1,9 +1,12 @@
 package org.gragon.storage.domain.bo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.linpeilie.annotations.AutoMapper;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.gragon.common.core.validate.AddGroup;
+import org.gragon.common.core.validate.EditGroup;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
 import org.gragon.storage.domain.Item;
 
@@ -25,23 +28,18 @@ public class ItemBo extends BaseEntity {
     /**
      * 物品ID
      */
+    @NotNull(groups = EditGroup.class, message = "{storage.item.id.not.null}")
     Long id;
 
     /**
-     * 拥有者ID
-     */
-    Long ownerId;
-    /**
      * 存放空间ID
      */
+    @NotNull(groups = AddGroup.class, message = "{storage.item.space-id.not.null}")
     Long spaceId;
-    /**
-     * 分类ID
-     */
-    Long categoryId;
     /**
      * 物品名称
      */
+    @NotNull(groups = AddGroup.class, message = "{storage.item.space-id.not.null}")
     String name;
     /**
      * 物品描述
@@ -50,14 +48,12 @@ public class ItemBo extends BaseEntity {
     /**
      * 数量
      */
+    @NotNull(groups = AddGroup.class, message = "{storage.item.quantity.not.null}")
     Float quantity;
-    /**
-     * 最小数量
-     */
-    Float minQuantity;
     /**
      * 单位
      */
+    @NotBlank(groups = AddGroup.class, message = "{storage.item.unit.not.blank}")
     String unit;
     /**
      * 状态
@@ -68,13 +64,9 @@ public class ItemBo extends BaseEntity {
      */
     Float purchasePrice;
     /**
-     * 当前价值
-     */
-    Float currentValue;
-    /**
      * 购买日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
+    @NotNull(groups = AddGroup.class, message = "{storage.item.purchase-date.not.null}")
     LocalDateTime purchaseDate;
     /**
      * 图片列表
@@ -91,11 +83,9 @@ public class ItemBo extends BaseEntity {
     /**
      * 到期日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
-    LocalDateTime  expiryDate;
+    LocalDateTime expiryDate;
     /**
      * 维护日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT+8")
-    LocalDateTime  maintenanceDate;
+    LocalDateTime maintenanceDate;
 }

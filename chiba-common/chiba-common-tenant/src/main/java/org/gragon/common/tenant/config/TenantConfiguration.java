@@ -80,7 +80,6 @@ public class TenantConfiguration {
         public TenantLineInnerInterceptor tenantLineInnerInterceptor(TenantProperties tenantProperties) {
             return new TenantLineInnerInterceptor(new PlusTenantLineHandler(tenantProperties));
         }
-
     }
 
 }

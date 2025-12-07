@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.gragon.common.core.domain.R;
 import org.gragon.common.mybatis.core.page.PageQuery;
 import org.gragon.common.mybatis.core.page.TableDataInfo;
-import org.gragon.common.satoken.utils.LoginHelper;
 import org.gragon.common.web.core.BaseController;
 import org.gragon.storage.domain.bo.ItemBo;
 import org.gragon.storage.domain.vo.ItemInfoVo;
@@ -92,7 +91,6 @@ public class ItemController extends BaseController {
      */
     @PutMapping()
     public R<Void> updateItem(@Validated @RequestBody ItemBo itemBo) {
-        Long userId = LoginHelper.getUserId();
         return toAjax(itemService.updateItem(itemBo));
     }
 }

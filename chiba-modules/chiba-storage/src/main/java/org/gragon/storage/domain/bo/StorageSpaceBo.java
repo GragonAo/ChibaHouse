@@ -1,8 +1,12 @@
 package org.gragon.storage.domain.bo;
 
 import io.github.linpeilie.annotations.AutoMapper;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.gragon.common.core.validate.AddGroup;
+import org.gragon.common.core.validate.EditGroup;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
 import org.gragon.storage.domain.StorageSpace;
 
@@ -19,18 +23,17 @@ public class StorageSpaceBo extends BaseEntity {
     /**
      * 存储空间ID
      */
+    @NotNull(groups = EditGroup.class, message = "{storage.space.id.not.null}")
     Long id;
     /**
      * 父存储空间ID
      */
+    @NotNull(groups = AddGroup.class, message = "{storage.space.parent-id.not.null}")
     Long parentId;
-    /**
-     * 拥有者ID
-     */
-    Long ownerId;
     /**
      * 存储空间名称
      */
+    @NotBlank(groups = AddGroup.class, message = "{storage.space.name.not.blank}")
     String name;
     /**
      * 存储空间描述
