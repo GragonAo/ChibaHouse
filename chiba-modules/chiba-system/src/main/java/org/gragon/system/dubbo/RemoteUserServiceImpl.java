@@ -12,7 +12,6 @@ import org.gragon.system.api.domain.bo.RemoteUserBo;
 import org.gragon.system.api.domain.vo.RemoteUserVo;
 import org.gragon.system.api.model.LoginUser;
 import org.gragon.system.api.model.XcxLoginUser;
-import org.gragon.system.domain.SysUser;
 import org.gragon.system.domain.bo.SysUserBo;
 import org.gragon.system.domain.vo.SysTenantVo;
 import org.gragon.system.domain.vo.SysUserVo;
@@ -123,8 +122,8 @@ public class RemoteUserServiceImpl implements RemoteUserService {
      */
     @Override
     public XcxLoginUser getUserInfoByOpenid(String openid) throws UserException {
-        // todo 自行实现 userService.selectUserByOpenid(openid);
-        SysUser sysUser = new SysUser();
+        // todo 自行实现
+        SysUserVo sysUser = userService.selectUserByOpenid(openid);
         if (ObjectUtil.isNull(sysUser)) {
             // todo 用户不存在 业务逻辑自行实现
         }

@@ -174,4 +174,12 @@ public interface SysUserService {
      * @return 用户邮箱
      */
     String selectEmailById(Long userId);
+
+    /**
+     * 通过openid查询用户信息
+     *
+     * @param openid openid
+     * @return 结果
+     */
+    SysUserVo selectUserByOpenid(String openid);
 }

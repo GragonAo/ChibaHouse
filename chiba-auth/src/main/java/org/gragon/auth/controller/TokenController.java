@@ -1,11 +1,17 @@
 package org.gragon.auth.controller;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.ObjectUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.model.AuthResponse;
+import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.request.AuthRequest;
+import me.zhyd.oauth.utils.AuthStateUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.gragon.auth.domain.vo.LoginVo;
 import org.gragon.auth.form.RegisterBody;
+import org.gragon.auth.form.SocialLoginBody;
 import org.gragon.auth.service.AuthStrategy;
 import org.gragon.auth.service.SysLoginService;
 import org.gragon.common.core.constant.UserConstants;
@@ -16,12 +22,17 @@ import org.gragon.common.core.utils.StringUtils;
 import org.gragon.common.core.utils.ValidatorUtils;
 import org.gragon.common.json.utils.JsonUtils;
 import org.gragon.common.satoken.utils.LoginHelper;
+import org.gragon.common.social.config.properties.SocialLoginConfigProperties;
 import org.gragon.common.social.config.properties.SocialProperties;
+import org.gragon.common.social.utils.SocialUtils;
 import org.gragon.system.api.RemoteClientService;
+import org.gragon.system.api.RemoteSocialService;
 import org.gragon.system.api.domain.vo.RemoteClientVo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * token 控制
@@ -35,6 +46,8 @@ public class TokenController {
 
     @DubboReference
     private final RemoteClientService remoteClientService;
+    @DubboReference
+    private final RemoteSocialService remoteSocialService;
 
     /**
      * 登录方法
@@ -72,21 +85,21 @@ public class TokenController {
      * @param source 登录来源
      * @return 结果
      */
-//    @GetMapping("/binding/{source}")
-//    public R<String> authBinding(@PathVariable("source") String source,
-//                                 @RequestParam String tenantId, @RequestParam String domain) {
-//        SocialLoginConfigProperties obj = socialProperties.getType().get(source);
-//        if (ObjectUtil.isNull(obj)) {
-//            return R.fail(source + "平台账号暂不支持");
-//        }
-//        AuthRequest authRequest = SocialUtils.getAuthRequest(source, socialProperties);
-//        Map<String, String> map = new HashMap<>();
-//        map.put("tenantId", tenantId);
-//        map.put("domain", domain);
-//        map.put("state", AuthStateUtils.createState());
-//        String authorizeUrl = authRequest.authorize(Base64.encode(JsonUtils.toJsonString(map), StandardCharsets.UTF_8));
-//        return R.ok("操作成功", authorizeUrl);
-//    }
+    @GetMapping("/binding/{source}")
+    public R<String> authBinding(@PathVariable("source") String source,
+                                 @RequestParam String tenantId, @RequestParam String domain) {
+        SocialLoginConfigProperties obj = socialProperties.getType().get(source);
+        if (ObjectUtil.isNull(obj)) {
+            return R.fail(source + "平台账号暂不支持");
+        }
+        AuthRequest authRequest = SocialUtils.getAuthRequest(source, socialProperties);
+        Map<String, String> map = new HashMap<>();
+        map.put("tenantId", tenantId);
+        map.put("domain", domain);
+        map.put("state", AuthStateUtils.createState());
+        String authorizeUrl = authRequest.authorize(Base64.encode(JsonUtils.toJsonString(map), StandardCharsets.UTF_8));
+        return R.ok("操作成功", authorizeUrl);
+    }
 
     /**
      * 第三方登录回调业务处理 绑定授权
@@ -94,20 +107,20 @@ public class TokenController {
      * @param loginBody 请求体
      * @return 结果
      */
-//    @PostMapping("/social/callback")
-//    public R<Void> socialCallback(@RequestBody SocialLoginBody loginBody) {
-//        // 获取第三方登录信息
-//        AuthResponse<AuthUser> response = SocialUtils.loginAuth(
-//            loginBody.getSource(), loginBody.getSocialCode(),
-//            loginBody.getSocialState(), socialProperties);
-//        AuthUser authUserData = response.getData();
-//        // 判断授权响应是否成功
-//        if (!response.ok()) {
-//            return R.fail(response.getMsg());
-//        }
-//        sysLoginService.socialRegister(authUserData);
-//        return R.ok();
-//    }
+    @PostMapping("/social/callback")
+    public R<Void> socialCallback(@RequestBody SocialLoginBody loginBody) {
+        // 获取第三方登录信息
+        AuthResponse<AuthUser> response = SocialUtils.loginAuth(
+                loginBody.getSource(), loginBody.getSocialCode(),
+                loginBody.getSocialState(), socialProperties);
+        AuthUser authUserData = response.getData();
+        // 判断授权响应是否成功
+        if (!response.ok()) {
+            return R.fail(response.getMsg());
+        }
+        sysLoginService.socialRegister(authUserData);
+        return R.ok();
+    }
 
 
     /**
@@ -115,11 +128,11 @@ public class TokenController {
      *
      * @param socialId socialId
      */
-//    @DeleteMapping(value = "/unlock/{socialId}")
-//    public R<Void> unlockSocial(@PathVariable Long socialId) {
-//        Boolean rows = remoteSocialService.deleteWithValidById(socialId);
-//        return rows ? R.ok() : R.fail("取消授权失败");
-//    }
+    @DeleteMapping(value = "/unlock/{socialId}")
+    public R<Void> unlockSocial(@PathVariable Long socialId) {
+        Boolean rows = remoteSocialService.deleteWithValidById(socialId);
+        return rows ? R.ok() : R.fail("取消授权失败");
+    }
 
     /**
      * 登出方法

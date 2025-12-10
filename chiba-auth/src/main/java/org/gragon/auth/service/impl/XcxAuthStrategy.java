@@ -7,25 +7,25 @@
 //import org.apache.dubbo.config.annotation.DubboReference;
 //import org.gragon.auth.domain.vo.LoginVo;
 //import org.gragon.auth.form.XcxLoginBody;
-//import org.gragon.auth.service.IAuthStrategy;
+//import org.gragon.auth.service.AuthStrategy;
 //import org.gragon.auth.service.SysLoginService;
-//import org.dromara.common.core.utils.ValidatorUtils;
-//import org.dromara.common.json.utils.JsonUtils;
-//import org.dromara.common.satoken.utils.LoginHelper;
-//import org.dromara.system.api.RemoteUserService;
-//import org.dromara.system.api.domain.vo.RemoteClientVo;
-//import org.dromara.system.api.model.XcxLoginUser;
+//import org.gragon.common.core.utils.ValidatorUtils;
+//import org.gragon.common.json.utils.JsonUtils;
+//import org.gragon.common.satoken.utils.LoginHelper;
+//import org.gragon.system.api.RemoteUserService;
+//import org.gragon.system.api.domain.vo.RemoteClientVo;
+//import org.gragon.system.api.model.XcxLoginUser;
 //import org.springframework.stereotype.Service;
 //
-///**
+/// **
 // * 邮件认证策略
 // *
 // * @author Michelle.Chung
 // */
 //@Slf4j
-//@Service("xcx" + IAuthStrategy.BASE_NAME)
+//@Service("xcx" + AuthStrategy.BASE_NAME)
 //@RequiredArgsConstructor
-//public class XcxAuthStrategy implements IAuthStrategy {
+//public class XcxAuthStrategy implements AuthStrategy {
 //
 //    private final SysLoginService loginService;
 //

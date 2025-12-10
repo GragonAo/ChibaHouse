@@ -330,4 +330,9 @@ public class SysUserServiceImpl implements SysUserService {
         return ObjectUtil.isNull(sysUser) ? null : sysUser.getEmail();
     }
 
+    @Override
+    public SysUserVo selectUserByOpenid(String openid) {
+        return null;
+    }
+
 }
