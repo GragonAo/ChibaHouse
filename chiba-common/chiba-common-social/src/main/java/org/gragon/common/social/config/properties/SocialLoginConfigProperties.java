@@ -72,4 +72,13 @@ public class SocialLoginConfigProperties {
      */
     private List<String> scopes;
 
+    /**
+     * 是否忽略重定向地址校验
+     */
+    private boolean ignoreCheckRedirectUri = true;
+
+    /**
+     * 是否忽略状态码校验
+     */
+    private boolean ignoreCheckState = true;
 }

@@ -25,4 +25,6 @@ public class XcxLoginBody extends LoginBody {
     @NotBlank(message = "{xcx.code.not.blank}")
     private String xcxCode;
 
+    private String phoneCode;
+
 }

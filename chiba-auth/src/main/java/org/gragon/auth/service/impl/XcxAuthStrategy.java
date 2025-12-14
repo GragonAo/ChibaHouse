@@ -8,10 +8,12 @@
 //import org.gragon.auth.domain.vo.LoginVo;
 //import org.gragon.auth.form.XcxLoginBody;
 //import org.gragon.auth.service.AuthStrategy;
-//import org.gragon.auth.service.SysLoginService;
+//import org.gragon.common.core.utils.StringUtils;
 //import org.gragon.common.core.utils.ValidatorUtils;
 //import org.gragon.common.json.utils.JsonUtils;
 //import org.gragon.common.satoken.utils.LoginHelper;
+//import org.gragon.common.social.config.properties.SocialProperties;
+//import org.gragon.common.social.domain.XcxAuth;
 //import org.gragon.system.api.RemoteUserService;
 //import org.gragon.system.api.domain.vo.RemoteClientVo;
 //import org.gragon.system.api.model.XcxLoginUser;
@@ -19,15 +21,13 @@
 //
 /// **
 // * 邮件认证策略
-// *
-// * @author Michelle.Chung
 // */
-//@Slf4j
 //@Service("xcx" + AuthStrategy.BASE_NAME)
 //@RequiredArgsConstructor
+//@Slf4j
 //public class XcxAuthStrategy implements AuthStrategy {
 //
-//    private final SysLoginService loginService;
+//    private final SocialProperties socialProperties;
 //
 //    @DubboReference
 //    private RemoteUserService remoteUserService;
@@ -36,34 +36,42 @@
 //    public LoginVo login(String body, RemoteClientVo client) {
 //        XcxLoginBody loginBody = JsonUtils.parseObject(body, XcxLoginBody.class);
 //        ValidatorUtils.validate(loginBody);
-//        // xcxCode 为 小程序调用 wx.login 授权后获取
-//        String xcxCode = loginBody.getXcxCode();
-//        // 多个小程序识别使用
-//        String appid = loginBody.getAppid();
 //
-//        // todo 以下自行实现
-//        // 校验 appid + appsrcret + xcxCode 调用登录凭证校验接口 获取 session_key 与 openid
-//        String openid = "";
+//        String code = loginBody.getXcxCode();
+//        String appid = loginBody.getAppid();
+//        String phoneCode = loginBody.getPhoneCode();
+//
+//        XcxAuth xcxAuth = XcxUtils.loginAuth("wx_mini_app", code, appid, socialProperties);
+//
+//        // 3) 查用户，无则注册（需手机号）
 //        XcxLoginUser loginUser = remoteUserService.getUserInfoByOpenid(openid);
+//        if (loginUser == null) {
+//            if (StringUtils.isBlank(phoneCode)) {
+//                throw new IllegalArgumentException("首次登录需提供手机号或 phoneCode");
+//            }
+//            String mobile = decryptPhone(appid, appSecret, sessionKey, phoneCode);
+//            if (StringUtils.isBlank(mobile)) throw new IllegalStateException("获取手机号失败");
+//            loginUser = registerByPhoneAndOpenid(mobile, openid, unionid, appid);
+//            if (loginUser == null) throw new IllegalStateException("注册用户失败");
+//        }
+//
+//        // 4) 附加客户端信息
 //        loginUser.setClientKey(client.getClientKey());
 //        loginUser.setDeviceType(client.getDeviceType());
 //
-//        SaLoginModel model = new SaLoginModel();
-//        model.setDevice(client.getDeviceType());
-//        // 自定义分配 不同用户体系 不同 token 授权时间 不设置默认走全局 yml 配置
-//        // 例如: 后台用户30分钟过期 app用户1天过期
-//        model.setTimeout(client.getTimeout());
-//        model.setActiveTimeout(client.getActiveTimeout());
-//        model.setExtra(LoginHelper.CLIENT_KEY, client.getClientId());
-//        // 生成token
+//        // 5) 发 token
+//        SaLoginModel model = new SaLoginModel()
+//                .setDevice(client.getDeviceType())
+//                .setTimeout(client.getTimeout())
+//                .setActiveTimeout(client.getActiveTimeout())
+//                .setExtra(LoginHelper.CLIENT_KEY, client.getClientId());
 //        LoginHelper.login(loginUser, model);
 //
-//        LoginVo loginVo = new LoginVo();
-//        loginVo.setAccessToken(StpUtil.getTokenValue());
-//        loginVo.setExpireIn(StpUtil.getTokenTimeout());
-//        loginVo.setClientId(client.getClientId());
-//        loginVo.setOpenid(openid);
-//        return loginVo;
+//        LoginVo vo = new LoginVo();
+//        vo.setAccessToken(StpUtil.getTokenValue());
+//        vo.setExpireIn(StpUtil.getTokenTimeout());
+//        vo.setClientId(client.getClientId());
+//        vo.setOpenid(openid);
+//        return vo;
 //    }
-//
 //}
