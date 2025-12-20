@@ -181,7 +181,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean registerUser(SysUserBo user) {
+    public Long registerUser(SysUserBo user) {
         user.setCreateBy(0L);
         user.setUpdateBy(0L);
         SysUser sysUser = MapstructUtils.convert(user, SysUser.class);
@@ -191,7 +191,8 @@ public class SysUserServiceImpl implements SysUserService {
         tenantBo.setCreateBy(sysUser.getUserId());
         tenantBo.setUpdateBy(sysUser.getUserId());
 
-        return sysTenantService.insertTenant(tenantBo);
+        sysTenantService.insertTenant(tenantBo);
+        return sysUser.getUserId();
     }
 
     /**

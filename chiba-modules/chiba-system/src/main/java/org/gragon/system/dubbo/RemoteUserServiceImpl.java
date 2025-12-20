@@ -148,7 +148,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
      * @return 结果
      */
     @Override
-    public Boolean registerUserInfo(RemoteUserBo remoteUserBo) throws UserException, ServiceException {
+    public Long registerUserInfo(RemoteUserBo remoteUserBo) throws UserException, ServiceException {
         SysUserBo sysUserBo = MapstructUtils.convert(remoteUserBo, SysUserBo.class);
         String username = sysUserBo.getUserName();
         if (userService.existUserName(username)) {

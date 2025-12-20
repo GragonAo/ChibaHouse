@@ -60,7 +60,7 @@ public interface RemoteUserService {
      * @param remoteUserBo 用户信息
      * @return 结果
      */
-    Boolean registerUserInfo(RemoteUserBo remoteUserBo) throws UserException, ServiceException;
+    Long registerUserInfo(RemoteUserBo remoteUserBo) throws UserException, ServiceException;
 
     /**
      * 通过userId查询用户账户

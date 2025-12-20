@@ -127,7 +127,7 @@ public class TenantHelper {
         if (!isEnable()) {
             return;
         }
-        if (!LoginHelper.isLogin() || !global) {
+        if (!global) {
             TEMP_DYNAMIC_TENANT.set(tenantId);
             return;
         }

@@ -116,7 +116,7 @@ public class TokenController {
         if (!response.ok()) {
             return R.fail(response.getMsg());
         }
-        sysLoginService.socialRegister(authUserData);
+        sysLoginService.socialRegister(authUserData, LoginHelper.getUserId());
         return R.ok();
     }
 

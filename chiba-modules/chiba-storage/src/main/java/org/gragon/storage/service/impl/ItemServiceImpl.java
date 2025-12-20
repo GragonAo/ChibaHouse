@@ -1,5 +1,6 @@
 package org.gragon.storage.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -70,7 +71,7 @@ public class ItemServiceImpl implements ItemService {
         Long userId = LoginHelper.getUserId();
         List<Long> accessibleSpaceIds = storageSpaceService.getAuthorizedSpaceList(userId);
         // 如果用户没有任何空间权限，传递一个不存在的空间id
-        if (accessibleSpaceIds.isEmpty()) accessibleSpaceIds.add(-1L);
+        if (CollectionUtil.isEmpty(accessibleSpaceIds)) accessibleSpaceIds.add(-1L);
 
         return Wrappers.<Item>lambdaQuery()
                 .in(Item::getSpaceId, accessibleSpaceIds)

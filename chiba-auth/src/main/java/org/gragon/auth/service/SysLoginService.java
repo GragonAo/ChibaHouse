@@ -65,12 +65,11 @@ public class SysLoginService {
      * @param authUserData 授权响应实体
      */
     @Lock4j
-    public void socialRegister(AuthUser authUserData) {
+    public void socialRegister(AuthUser authUserData, Long userId) {
         String authId = authUserData.getSource() + authUserData.getUuid();
         // 第三方用户信息
         RemoteSocialBo bo = BeanUtil.toBean(authUserData, RemoteSocialBo.class);
 //        BeanUtil.copyProperties(authUserData.getToken(), bo);
-        Long userId = LoginHelper.getUserId();
         bo.setUserId(userId);
         bo.setAuthId(authId);
         bo.setOpenId(authUserData.getUuid());
@@ -138,7 +137,7 @@ public class SysLoginService {
         remoteUserBo.setPassword(BCrypt.hashpw(password));
         remoteUserBo.setUserType(userType);
 
-        boolean regFlag = remoteUserService.registerUserInfo(remoteUserBo);
+        boolean regFlag = remoteUserService.registerUserInfo(remoteUserBo) != null;
         if (!regFlag) {
             throw new UserException("user.register.error");
         }

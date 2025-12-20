@@ -32,6 +32,13 @@
                 <artifactId>chiba-api-storage</artifactId>
                 <version>${revision}</version>
             </dependency>
+
+
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-api-resource</artifactId>
+                <version>${revision}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

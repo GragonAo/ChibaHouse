@@ -12,6 +12,7 @@
         <module>chiba-api-bom</module>
         <module>chiba-api-system</module>
         <module>chiba-api-storage</module>
+        <module>chiba-api-resource</module>
     </modules>
 
     <artifactId>chiba-api</artifactId>

@@ -1,5 +1,7 @@
 package org.gragon.system.domain.bo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,16 +11,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.gragon.common.core.constant.RegexConstants;
+import org.gragon.common.core.enums.UserRoleType;
+import org.gragon.common.core.enums.UserSexType;
 import org.gragon.common.core.enums.UserStatus;
 import org.gragon.common.core.xss.Xss;
 import org.gragon.common.mybatis.core.domain.BaseEntity;
-import org.gragon.common.core.enums.UserRoleType;
-import org.gragon.common.core.enums.UserSexType;
 import org.gragon.system.domain.SysUser;
 
 /**
  * 用户信息业务对象 sys_user
- *
  */
 
 @Data
@@ -30,6 +31,7 @@ public class SysUserBo extends BaseEntity {
     /**
      * 用户ID
      */
+    @TableId(type = IdType.ASSIGN_ID)
     private Long userId;
 
 

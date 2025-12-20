@@ -29,6 +29,12 @@
         <module>chiba-common-log</module>
         <module>chiba-common-tenant</module>
         <module>chiba-common-idempotent</module>
+        <module>chiba-common-oss</module>
+        <module>chiba-common-mail</module>
+        <module>chiba-common-sms</module>
+        <module>chiba-common-websocket</module>
+        <module>chiba-common-sse</module>
+        <module>chiba-common-translation</module>
     </modules>
     <build>
         <plugins>

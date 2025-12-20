@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.gragon</groupId>
+        <artifactId>chiba-common</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>chiba-common-translation</artifactId>
+
+    <description>
+        chiba-common-translation 通用翻译功能
+    </description>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-json</artifactId>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.gragon</groupId>-->
+        <!--            <artifactId>chiba-common-dict</artifactId>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-common-dubbo</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-api-resource</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.gragon</groupId>
+            <artifactId>chiba-api-system</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

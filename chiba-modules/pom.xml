@@ -11,6 +11,7 @@
     <modules>
         <module>chiba-system</module>
         <module>chiba-storage</module>
+        <module>chiba-resource</module>
     </modules>
 
     <artifactId>chiba-modules</artifactId>

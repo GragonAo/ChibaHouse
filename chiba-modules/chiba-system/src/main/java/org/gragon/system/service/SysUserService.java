@@ -96,7 +96,7 @@ public interface SysUserService {
      * @param user 用户信息
      * @return 结果
      */
-    boolean registerUser(SysUserBo user);
+    Long registerUser(SysUserBo user);
 
     /**
      * 修改用户信息

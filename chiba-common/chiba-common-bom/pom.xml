@@ -128,6 +128,37 @@
                 <artifactId>chiba-common-tenant</artifactId>
                 <version>${revision}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-oss</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-mail</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-sms</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-websocket</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-sse</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.gragon</groupId>
+                <artifactId>chiba-common-translation</artifactId>
+                <version>${revision}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

@@ -28,7 +28,12 @@ public enum LoginType {
     /**
      * 小程序登录
      */
-    XCX("", "");
+    XCX("", ""),
+
+    /**
+     * 第三方登录
+     */
+    SOCIAL("social.code.retry.limit.exceed", "social.code.retry.limit.count");
 
     /**
      * 登录重试超出限制提示

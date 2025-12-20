@@ -77,9 +77,11 @@ public class StorageSpaceServiceImpl implements StorageSpaceService {
     public List<Long> getAuthorizedSpaceList(Long userId) {
         List<Long> spaceAllDenyUidList = spacePermissionService.getSpaceAllDenyUidList(userId);
         List<StorageSpace> authorizedSpaces = baseMapper.selectList(new LambdaQueryWrapper<StorageSpace>()
-                .notIn(spaceAllDenyUidList != null && !spaceAllDenyUidList.isEmpty(), StorageSpace::getId, spaceAllDenyUidList)
+                .notIn(CollectionUtil.isNotEmpty(spaceAllDenyUidList), StorageSpace::getId, spaceAllDenyUidList)
                 .select(StorageSpace::getId)
         );
+        if (CollectionUtil.isEmpty(spaceAllDenyUidList))
+            return new ArrayList<>();
         return authorizedSpaces.stream().map(StorageSpace::getId).toList();
     }
 
