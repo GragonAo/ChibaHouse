@@ -75,6 +75,7 @@ public class ItemServiceImpl implements ItemService {
 
         return Wrappers.<Item>lambdaQuery()
                 .in(Item::getSpaceId, accessibleSpaceIds)
+                .eq(item.getSpaceId() != null, Item::getSpaceId, item.getSpaceId())
                 .like(StringUtils.isNotBlank(item.getName()), Item::getName, item.getName())
                 .between(params.get("beginTime") != null && params.get("endTime") != null,
                         Item::getCreateTime, params.get("beginTime"), params.get("endTime"))

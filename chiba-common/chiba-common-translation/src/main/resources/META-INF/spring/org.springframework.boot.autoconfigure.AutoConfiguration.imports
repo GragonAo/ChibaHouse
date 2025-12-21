@@ -1,6 +1,3 @@
 org.gragon.common.translation.config.TranslationConfig
-org.gragon.common.translation.core.impl.DeptNameTranslationImpl
-org.gragon.common.translation.core.impl.DictTypeTranslationImpl
 org.gragon.common.translation.core.impl.OssUrlTranslationImpl
 org.gragon.common.translation.core.impl.UserNameTranslationImpl
-org.gragon.common.translation.core.impl.NicknameTranslationImpl

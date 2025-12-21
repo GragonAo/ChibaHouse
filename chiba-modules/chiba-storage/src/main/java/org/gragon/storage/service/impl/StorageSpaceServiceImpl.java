@@ -80,7 +80,7 @@ public class StorageSpaceServiceImpl implements StorageSpaceService {
                 .notIn(CollectionUtil.isNotEmpty(spaceAllDenyUidList), StorageSpace::getId, spaceAllDenyUidList)
                 .select(StorageSpace::getId)
         );
-        if (CollectionUtil.isEmpty(spaceAllDenyUidList))
+        if (CollectionUtil.isEmpty(authorizedSpaces))
             return new ArrayList<>();
         return authorizedSpaces.stream().map(StorageSpace::getId).toList();
     }
